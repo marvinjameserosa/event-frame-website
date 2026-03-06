@@ -1,5 +1,6 @@
 "use client";
 import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
 
 interface FramePreviewProps {
 	frameUrl?: string;
@@ -20,6 +21,41 @@ export default function FramePreview({
 	userImgPos = { x: 0, y: 0 },
 	onImageDrag
 }: FramePreviewProps) {
+	const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
+
+	useEffect(() => {
+		if (!userImage) {
+			setNaturalSize(null);
+			return;
+		}
+
+		let isMounted = true;
+		const img = new window.Image();
+		img.onload = () => {
+			if (!isMounted) return;
+			setNaturalSize({ width: img.naturalWidth, height: img.naturalHeight });
+		};
+		img.src = userImage;
+
+		return () => {
+			isMounted = false;
+		};
+	}, [userImage]);
+
+	const userImageDisplaySize = useMemo(() => {
+		if (!naturalSize || naturalSize.width <= 0 || naturalSize.height <= 0) {
+			return { width: 520, height: 520 };
+		}
+
+		const maxSide = 520;
+		const ratio = maxSide / Math.max(naturalSize.width, naturalSize.height);
+
+		return {
+			width: Math.max(1, Math.round(naturalSize.width * ratio)),
+			height: Math.max(1, Math.round(naturalSize.height * ratio))
+		};
+	}, [naturalSize]);
+
 	const handleMouseDown = (e: React.MouseEvent<HTMLImageElement>) => {
 		if (!onImageDrag || !userImage) return;
 		
@@ -54,16 +90,14 @@ export default function FramePreview({
 						   <Image
 							   src={userImage}
 							   alt="User uploaded"
-							   width={520}
-							   height={520}
+							   width={userImageDisplaySize.width}
+							   height={userImageDisplaySize.height}
 							   className="absolute cursor-move"
 							   style={{
 								   transform: `scale(${userScale / 100}) rotate(${userRotate}deg)`,
 								   transformOrigin: 'center',
 								   left: `${userImgPos.x}px`,
-								   top: `${userImgPos.y}px`,
-								   maxWidth: '100%',
-								   maxHeight: '100%'
+								   top: `${userImgPos.y}px`
 							   }}
 							   onMouseDown={handleMouseDown}
 							   draggable={false}
