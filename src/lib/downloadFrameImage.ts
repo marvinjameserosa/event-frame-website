@@ -24,6 +24,12 @@ export async function downloadFrameImage({
   if (!frame) return;
   onStart?.();
   try {
+    const previewElement = document.getElementById('frame-preview');
+    const previewSize = previewElement?.clientWidth || 620;
+    const previewUserImage = previewElement?.querySelector(
+      'img[alt="User uploaded"]'
+    ) as HTMLImageElement | null;
+
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Could not get canvas context');
@@ -40,14 +46,30 @@ export async function downloadFrameImage({
         userImg.onerror = reject;
         userImg.src = userImage;
       });
+
       ctx.save();
-      ctx.translate(size / 2, size / 2);
-      const previewSize = 600;
       const scaleFactor = size / previewSize;
-      ctx.translate(userImgPos.x * scaleFactor, userImgPos.y * scaleFactor);
+
+      const renderedWidth = previewUserImage?.clientWidth || previewSize;
+      const renderedHeight = previewUserImage?.clientHeight || previewSize;
+      const renderedLeft =
+        previewUserImage?.offsetLeft !== undefined
+          ? previewUserImage.offsetLeft
+          : userImgPos.x;
+      const renderedTop =
+        previewUserImage?.offsetTop !== undefined
+          ? previewUserImage.offsetTop
+          : userImgPos.y;
+
+      const drawWidth = renderedWidth * scaleFactor;
+      const drawHeight = renderedHeight * scaleFactor;
+      const centerX = (renderedLeft + renderedWidth / 2) * scaleFactor;
+      const centerY = (renderedTop + renderedHeight / 2) * scaleFactor;
+
+      ctx.translate(centerX, centerY);
       ctx.rotate((userRotate * Math.PI) / 180);
       ctx.scale(userScale / 100, userScale / 100);
-      ctx.drawImage(userImg, -size / 2, -size / 2, size, size);
+      ctx.drawImage(userImg, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
       ctx.restore();
     }
     const frameImg = new Image();
