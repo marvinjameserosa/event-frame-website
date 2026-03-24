@@ -41,10 +41,7 @@ const FeaturesSection = () => (
         </span>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
           Why choose{' '}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FF8552)' }}
-          >
+          <span style={{ color: '#1ED9C3' }}>
             FrameIt
           </span>
         </h2>

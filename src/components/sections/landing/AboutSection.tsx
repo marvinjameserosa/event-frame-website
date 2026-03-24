@@ -33,10 +33,7 @@ const AboutSection = () => (
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6 text-balance">
             Turn moments into{' '}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FFB84D)' }}
-            >
+            <span style={{ color: '#FF8552' }}>
               masterpieces
             </span>
           </h2>
