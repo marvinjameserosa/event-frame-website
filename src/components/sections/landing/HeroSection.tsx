@@ -4,11 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
 
-/* ── Polaroid positions: intentional gallery wall ──
-   Arranged as two "wings" flanking centre content.
-   Left wing  = 3 photos in a slight fan arc.
-   Right wing = 3 photos mirrored.
-   Bottom     = 2 photos peeking up from the edge.
+/* ── Polaroid layout: curated gallery wall ──
+   Left column:  stacked cascade, slight inward tilt
+   Right column: mirrored cascade, slight inward tilt
+   Creates a "parting curtain" that frames the centre content
 */
 const HERO_PHOTOS: {
   src: string;
@@ -22,22 +21,20 @@ const HERO_PHOTOS: {
   right?: string;
   z: number;
 }[] = [
-  // ── Left wing (fan arc, top → bottom) ──
-  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 210, h: 260, rotate: -14, top: '4%',  left: '2%',  z: 3 },
-  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 190, h: 240, rotate: -6,  top: '32%', left: '0%',  z: 2 },
-  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 200, h: 250, rotate: -18, top: '60%', left: '3%',  z: 1 },
+  // -- Left cascade (tilted inward toward centre) --
+  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 220, h: 270, rotate: -8,   top: '2%',  left: '1%',  z: 4 },
+  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 200, h: 250, rotate: -4,   top: '28%', left: '4%',  z: 3 },
+  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 190, h: 240, rotate: -10,  top: '56%', left: '1%',  z: 2 },
+  { src: '/hero/photo4.jpg', caption: 'Memories',        w: 180, h: 230, rotate: -3,   top: '80%', left: '5%',  z: 1 },
 
-  // ── Right wing (mirrored fan arc) ──
-  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 210, h: 260, rotate: 12,  top: '3%',  right: '2%', z: 3 },
-  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 190, h: 240, rotate: 5,   top: '33%', right: '1%', z: 2 },
-  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 200, h: 250, rotate: 16,  top: '61%', right: '3%', z: 1 },
-
-  // ── Bottom centre peek ──
-  { src: '/hero/photo4.jpg', caption: 'Memories',  w: 180, h: 230, rotate: -4,  bottom: '-4%', left: '26%', z: 1 },
-  { src: '/hero/photo8.jpg', caption: 'Snapshot',  w: 180, h: 230, rotate: 5,   bottom: '-4%', right: '26%', z: 1 },
+  // -- Right cascade (mirrored) --
+  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 220, h: 270, rotate: 8,    top: '2%',  right: '1%', z: 4 },
+  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 200, h: 250, rotate: 4,    top: '28%', right: '4%', z: 3 },
+  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 190, h: 240, rotate: 10,   top: '56%', right: '1%', z: 2 },
+  { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 180, h: 230, rotate: 3,    top: '80%', right: '5%', z: 1 },
 ];
 
-/* ── Fireflies: warm golden-green forest lights ── */
+/* ── Fireflies: warm golden lanterns in a night sky ── */
 const FIREFLIES: {
   top: string;
   left: string;
@@ -48,23 +45,33 @@ const FIREFLIES: {
   glowDur: string;
   delay: string;
 }[] = [
-  { top: '8%',  left: '18%', size: 7,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3s',   delay: '0s' },
-  { top: '16%', left: '72%', size: 9,  color: '#ffe5a0', drift: 2, driftDur: '11s', glowDur: '2.6s', delay: '1.2s' },
-  { top: '28%', left: '30%', size: 6,  color: '#FFB84D', drift: 3, driftDur: '13s', glowDur: '3.4s', delay: '0.4s' },
-  { top: '38%', left: '60%', size: 8,  color: '#ffe5a0', drift: 1, driftDur: '10s', glowDur: '2.8s', delay: '2s' },
-  { top: '52%', left: '20%', size: 5,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3.2s', delay: '3.5s' },
-  { top: '60%', left: '78%', size: 7,  color: '#ffe5a0', drift: 3, driftDur: '12s', glowDur: '2.4s', delay: '0.8s' },
-  { top: '72%', left: '42%', size: 9,  color: '#FFB84D', drift: 1, driftDur: '11s', glowDur: '3s',   delay: '4s' },
-  { top: '80%', left: '65%', size: 6,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.6s', delay: '1.6s' },
-  { top: '14%', left: '50%', size: 8,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3.4s', delay: '2.8s' },
-  { top: '45%', left: '85%', size: 5,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.2s', delay: '5s' },
-  { top: '88%', left: '12%', size: 7,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3s',   delay: '0.6s' },
-  { top: '35%', left: '10%', size: 6,  color: '#ffe5a0', drift: 3, driftDur: '11s', glowDur: '2.8s', delay: '3s' },
-  { top: '22%', left: '88%', size: 8,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3.2s', delay: '1s' },
-  { top: '68%', left: '35%', size: 5,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.4s', delay: '4.5s' },
-  { top: '92%', left: '55%', size: 7,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3s',   delay: '2.2s' },
-  { top: '5%',  left: '38%', size: 6,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.6s', delay: '3.8s' },
+  { top: '6%',  left: '22%', size: 7,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3s',   delay: '0s' },
+  { top: '12%', left: '68%', size: 9,  color: '#ffe5a0', drift: 2, driftDur: '11s', glowDur: '2.6s', delay: '1.2s' },
+  { top: '25%', left: '35%', size: 6,  color: '#FFB84D', drift: 3, driftDur: '13s', glowDur: '3.4s', delay: '0.4s' },
+  { top: '34%', left: '58%', size: 8,  color: '#ffe5a0', drift: 1, driftDur: '10s', glowDur: '2.8s', delay: '2s' },
+  { top: '48%', left: '25%', size: 5,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3.2s', delay: '3.5s' },
+  { top: '55%', left: '74%', size: 7,  color: '#ffe5a0', drift: 3, driftDur: '12s', glowDur: '2.4s', delay: '0.8s' },
+  { top: '68%', left: '44%', size: 9,  color: '#FFB84D', drift: 1, driftDur: '11s', glowDur: '3s',   delay: '4s' },
+  { top: '76%', left: '62%', size: 6,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.6s', delay: '1.6s' },
+  { top: '10%', left: '48%', size: 8,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3.4s', delay: '2.8s' },
+  { top: '42%', left: '82%', size: 5,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.2s', delay: '5s' },
+  { top: '85%', left: '15%', size: 7,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3s',   delay: '0.6s' },
+  { top: '30%', left: '14%', size: 6,  color: '#ffe5a0', drift: 3, driftDur: '11s', glowDur: '2.8s', delay: '3s' },
+  { top: '18%', left: '85%', size: 8,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3.2s', delay: '1s' },
+  { top: '62%', left: '32%', size: 5,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.4s', delay: '4.5s' },
+  { top: '90%', left: '52%', size: 7,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3s',   delay: '2.2s' },
+  { top: '4%',  left: '42%', size: 6,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.6s', delay: '3.8s' },
 ];
+
+/* ── Tiny twinkling stars ── */
+const STARS = Array.from({ length: 30 }, (_, i) => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: Math.random() * 2 + 1,
+  delay: `${Math.random() * 6}s`,
+  dur: `${2 + Math.random() * 4}s`,
+  key: i,
+}));
 
 interface HeroSectionProps {
   primaryBlue?: string;
@@ -118,60 +125,69 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        background: 'linear-gradient(170deg, #0b1a14 0%, #0f241a 35%, #0a1610 70%, #081210 100%)',
+        background: 'linear-gradient(170deg, #0a1228 0%, #080e1a 30%, #0c1526 65%, #080e1a 100%)',
       }}
     >
-      {/* Forest floor mist */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: '40%',
-          background: 'linear-gradient(to top, rgba(15,36,26,0.5), transparent)',
-        }}
-      />
+      {/* Twinkling stars layer */}
+      {STARS.map((s) => (
+        <div
+          key={s.key}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: s.size,
+            height: s.size,
+            top: s.top,
+            left: s.left,
+            backgroundColor: '#fff',
+            animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
+            zIndex: 1,
+          }}
+        />
+      ))}
 
-      {/* Radial ambient glows -- like distant moonlight through trees */}
+      {/* Deep sky ambient glows */}
       <div
-        className="absolute rounded-full opacity-[0.07] blur-[160px] pointer-events-none"
+        className="absolute rounded-full opacity-[0.06] blur-[180px] pointer-events-none"
         style={{
-          width: 700,
-          height: 700,
-          backgroundColor: '#0d7d72',
-          top: '-15%',
-          left: '10%',
-          animation: 'heroFloat 22s ease-in-out infinite',
+          width: 800,
+          height: 800,
+          backgroundColor: '#1a3a6e',
+          top: '-20%',
+          left: '5%',
+          animation: 'heroFloat 24s ease-in-out infinite',
         }}
       />
       <div
-        className="absolute rounded-full opacity-[0.05] blur-[140px] pointer-events-none"
+        className="absolute rounded-full opacity-[0.05] blur-[160px] pointer-events-none"
+        style={{
+          width: 600,
+          height: 600,
+          backgroundColor: '#0d7d72',
+          bottom: '-5%',
+          right: '10%',
+          animation: 'heroFloat 28s ease-in-out infinite 4s',
+        }}
+      />
+      <div
+        className="absolute rounded-full opacity-[0.04] blur-[140px] pointer-events-none"
         style={{
           width: 500,
           height: 500,
           backgroundColor: '#FFB84D',
-          bottom: '0%',
-          right: '5%',
-          animation: 'heroFloat 26s ease-in-out infinite 5s',
-        }}
-      />
-      <div
-        className="absolute rounded-full opacity-[0.04] blur-[120px] pointer-events-none"
-        style={{
-          width: 400,
-          height: 400,
-          backgroundColor: '#FF8552',
-          top: '40%',
-          right: '20%',
-          animation: 'heroFloat 20s ease-in-out infinite 3s',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          animation: 'heroFloat 22s ease-in-out infinite 2s',
         }}
       />
 
       {/* Mouse-follow glow */}
       <div
-        className="absolute rounded-full opacity-[0.06] blur-[100px] pointer-events-none transition-all duration-[2500ms] ease-out"
+        className="absolute rounded-full opacity-[0.05] blur-[120px] pointer-events-none transition-all duration-[2500ms] ease-out"
         style={{
           width: 600,
           height: 600,
-          background: `radial-gradient(circle, ${primaryBlue}, transparent 70%)`,
+          background: `radial-gradient(circle, #1a3a6e, transparent 70%)`,
           left: `${mousePos.x * 100}%`,
           top: `${mousePos.y * 100}%`,
           transform: 'translate(-50%, -50%)',
@@ -196,10 +212,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         />
       ))}
 
-      {/* ── Polaroid photos ── */}
+      {/* ── Polaroid photos -- left & right cascades ── */}
       {HERO_PHOTOS.map((photo, i) => {
-        const parallaxX = (mousePos.x - 0.5) * (6 + i * 2);
-        const parallaxY = (mousePos.y - 0.5) * (6 + i * 2);
+        const parallaxX = (mousePos.x - 0.5) * (5 + i * 1.5);
+        const parallaxY = (mousePos.y - 0.5) * (5 + i * 1.5);
         return (
           <div
             key={i}
@@ -213,15 +229,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               zIndex: photo.z,
               transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
               transition: 'transform 0.8s cubic-bezier(0.16,1,0.3,1)',
-              animation: `polaroidFloat ${16 + i * 2}s ease-in-out infinite ${i * 0.6}s`,
+              animation: `polaroidFloat ${18 + i * 2}s ease-in-out infinite ${i * 0.5}s`,
             }}
           >
             <div
               className="rounded-sm overflow-hidden"
               style={{
                 background: '#f5f0e8',
-                padding: '10px 10px 40px 10px',
-                boxShadow: '0 8px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
+                padding: '10px 10px 44px 10px',
+                boxShadow: '0 10px 50px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5)',
               }}
             >
               <Image
@@ -232,13 +248,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 className="object-cover"
                 style={{
                   width: photo.w - 20,
-                  height: photo.h - 50,
+                  height: photo.h - 54,
                   display: 'block',
-                  filter: 'saturate(0.8) contrast(1.08) brightness(0.95)',
+                  filter: 'saturate(0.75) contrast(1.05) brightness(0.92)',
                 }}
               />
               <p
-                className="text-center mt-1.5 font-serif italic"
+                className="text-center mt-2 font-serif italic"
                 style={{ fontSize: 11, color: '#8a7e6b', letterSpacing: '0.02em' }}
               >
                 {photo.caption}
@@ -288,7 +304,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
         <p
           data-animate
-          className="text-lg sm:text-xl text-white/50 mb-10 max-w-lg mx-auto leading-relaxed font-normal"
+          className="text-lg sm:text-xl text-white/45 mb-10 max-w-lg mx-auto leading-relaxed font-normal"
         >
           Create, customize, and share stunning photo frames. Be post-ready in seconds.
         </p>
@@ -304,18 +320,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         <div data-animate className="mt-20 flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 font-medium">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/20 font-medium">
             Scroll
           </span>
           <div className="w-px h-8 scroll-line" />
         </div>
       </div>
 
-      {/* Bottom fade to next section */}
+      {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #0b1a14 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, #080e1a 100%)',
         }}
       />
     </section>

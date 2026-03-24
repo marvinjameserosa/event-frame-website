@@ -126,9 +126,9 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ── Forest night color palette ──
-   Deep forest:  #0b1a14
-   Dark moss:    #0f241a
+/* ── Night sky palette ──
+   Deep night:   #080e1a
+   Mid navy:     #0c1526
    Teal accent:  #0d7d72
    Orange warm:  #FF8552
    Yellow glow:  #FFB84D
@@ -157,11 +157,6 @@ html {
   50%      { transform: translateY(-20px); }
 }
 
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) translateX(0px); }
-  50%      { transform: translateY(-30px) translateX(20px); }
-}
-
 @keyframes pulse {
   0%, 100% { opacity: 0.6; transform: scale(1); }
   50%      { opacity: 1; transform: scale(1.1); }
@@ -177,11 +172,6 @@ html {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-@keyframes spin {
-  from { transform: rotate(45deg); }
-  to   { transform: rotate(405deg); }
 }
 
 @keyframes fadeIn {
@@ -205,7 +195,7 @@ html {
   50%      { transform: translateY(-8px); }
 }
 
-/* Firefly drift -- organic wandering path */
+/* Firefly drift -- three organic paths */
 @keyframes fireflyDrift1 {
   0%   { transform: translate(0, 0); }
   20%  { transform: translate(18px, -30px); }
@@ -230,14 +220,14 @@ html {
   100% { transform: translate(0, 0); }
 }
 
-/* Firefly glow pulse -- warm lantern flicker */
+/* Firefly glow -- warm lantern flicker */
 @keyframes fireflyGlow {
-  0%, 100% { opacity: 0.2; box-shadow: 0 0 6px 3px currentColor; }
-  15%      { opacity: 0.9; box-shadow: 0 0 18px 9px currentColor; }
-  30%      { opacity: 0.4; box-shadow: 0 0 8px 4px currentColor; }
-  50%      { opacity: 1;   box-shadow: 0 0 22px 11px currentColor; }
-  70%      { opacity: 0.3; box-shadow: 0 0 7px 3px currentColor; }
-  85%      { opacity: 0.8; box-shadow: 0 0 16px 8px currentColor; }
+  0%, 100% { opacity: 0.15; box-shadow: 0 0 6px 3px currentColor; }
+  15%      { opacity: 0.85; box-shadow: 0 0 20px 10px currentColor; }
+  30%      { opacity: 0.35; box-shadow: 0 0 8px 4px currentColor; }
+  50%      { opacity: 1;    box-shadow: 0 0 24px 12px currentColor; }
+  70%      { opacity: 0.25; box-shadow: 0 0 7px 3px currentColor; }
+  85%      { opacity: 0.75; box-shadow: 0 0 18px 9px currentColor; }
 }
 
 @keyframes floatRotate {
@@ -259,7 +249,13 @@ html {
   to   { transform: rotate(360deg); }
 }
 
-/* Hero text glow -- forest teal */
+/* Twinkling star */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(1.4); }
+}
+
+/* Hero text glow -- night teal */
 .hero-text-glow {
   text-shadow: 0 0 50px rgba(13, 125, 114, 0.35), 0 0 100px rgba(13, 125, 114, 0.15);
 }
@@ -291,10 +287,10 @@ html {
 .stagger-5 { animation-delay: 0.5s; }
 
 .glass {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Noise texture overlay */

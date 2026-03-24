@@ -75,7 +75,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       ref={sectionRef}
       id="features"
       className="py-24 md:py-32 scroll-mt-16 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0b1a14 0%, #0a1610 50%, #081210 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0a1222 50%, #080e1a 100%)' }}
     >
       {/* Subtle divider line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />

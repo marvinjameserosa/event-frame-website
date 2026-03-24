@@ -12,48 +12,34 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleHomeClick = () => {
-    router.push('/');
-  };
-
-  const handleAboutClick = () => {
-    if (pathname === '/') {
-      const aboutSection = document.getElementById('about-us');
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      router.push('/#about-us');
+  const handleNav = (target: string) => {
+    if (target === '/') {
+      router.push('/');
+      return;
     }
-  };
-
-  const handleFeaturesClick = () => {
     if (pathname === '/') {
-      const featuresSection = document.getElementById('features');
-      if (featuresSection) {
-        featuresSection.scrollIntoView({ behavior: 'smooth' });
-      }
+      const el = document.getElementById(target);
+      el?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      router.push('/#features');
+      router.push(`/#${target}`);
     }
   };
 
   return (
     <header
-      className="w-full text-white sticky top-0 z-50 transition-all duration-500"
+      className="w-full text-white sticky top-0 z-50"
       style={{
-        backgroundColor: scrolled ? 'rgba(11, 26, 20, 0.9)' : 'rgba(11, 26, 20, 0.3)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
+        backgroundColor: scrolled ? 'rgba(8, 14, 26, 0.85)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(24px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 40px rgba(0,0,0,0.4)' : 'none',
+        transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
         opacity: mounted ? 1 : 0,
         transform: mounted ? 'translateY(0)' : 'translateY(-10px)',
       }}
@@ -61,7 +47,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div
           className="text-xl font-bold cursor-pointer transition-all duration-300 text-white flex items-center gap-2 hover:scale-105 group"
-          onClick={handleHomeClick}
+          onClick={() => handleNav('/')}
         >
           <div className="relative">
             <Image
@@ -73,7 +59,7 @@ export default function Navbar() {
             />
             <div
               className="absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-              style={{ backgroundColor: '#1ED9C3' }}
+              style={{ backgroundColor: '#0d7d72' }}
             />
           </div>
           <span className="tracking-tight">FrameIt</span>
@@ -81,19 +67,19 @@ export default function Navbar() {
 
         <nav className="flex items-center gap-1">
           {[
-            { label: 'Home', onClick: handleHomeClick },
-            { label: 'About', onClick: handleAboutClick },
-            { label: 'Features', onClick: handleFeaturesClick },
+            { label: 'Home', target: '/' },
+            { label: 'About', target: 'about-us' },
+            { label: 'Features', target: 'features' },
           ].map((item) => (
             <button
               key={item.label}
-              onClick={item.onClick}
-              className="relative px-4 py-2 text-sm font-medium cursor-pointer text-white/70 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/5 group"
+              onClick={() => handleNav(item.target)}
+              className="relative px-4 py-2 text-sm font-medium cursor-pointer text-white/60 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/[0.04] group"
             >
               {item.label}
               <span
                 className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-0 group-hover:w-4 h-px transition-all duration-300 rounded-full"
-                style={{ backgroundColor: '#1ED9C3' }}
+                style={{ backgroundColor: '#FFB84D' }}
               />
             </button>
           ))}
