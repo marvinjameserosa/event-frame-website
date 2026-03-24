@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
 import YellowButton from '../../ui/YellowButton';
 
 interface HeroSectionProps {
@@ -7,94 +9,147 @@ interface HeroSectionProps {
   onGetStarted: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ primaryBlue = '#1ED9C3', accentGreen = '#FF8552', onGetStarted }) => (
-  <section 
-    className="relative min-h-[600px] flex items-center justify-center overflow-hidden"
-    style={{
-      background: 'linear-gradient(to bottom, #0a0a0a 0%, #151515 50%, #1a1a1a 100%)',
-    }}
-  >
-    <div 
-      className="absolute inset-0"
+const HeroSection: React.FC<HeroSectionProps> = ({
+  primaryBlue = '#1ED9C3',
+  accentGreen = '#FF8552',
+  onGetStarted,
+}) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const children = section.querySelectorAll('[data-animate]');
+    children.forEach((child, i) => {
+      const el = child as HTMLElement;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 150 + i * 120);
+    });
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `
-          radial-gradient(circle at top right, rgba(30, 217, 195, 0.08) 1px, transparent 1px),
-          radial-gradient(circle at 70% 30%, rgba(255, 133, 82, 0.06) 1.5px, transparent 1.5px),
-          radial-gradient(circle at 50% 60%, rgba(30, 217, 195, 0.05) 2px, transparent 2px)
-        `,
-        backgroundSize: '60px 60px, 80px 80px, 100px 100px',
-        backgroundPosition: 'top right, 20% 20%, 50% 50%'
+        background: '#0a0a0a',
       }}
-    />
-    {/* Floating decorative shapes */}
-    <div 
-      className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
-      style={{ 
-        backgroundColor: accentGreen,
-        top: '5%',
-        left: '10%',
-        animation: 'heroFloat 12s ease-in-out infinite'
-      }}
-    />
-    <div 
-      className="absolute w-80 h-80 rounded-full opacity-15 blur-3xl"
-      style={{ 
-        backgroundColor: primaryBlue,
-        bottom: '20%',
-        right: '15%',
-        animation: 'heroFloat 15s ease-in-out infinite 3s'
-      }}
-    />
-    <div className="relative z-10 text-center px-6 -mt-20">
-      {/* Decorative element above title */}
-      <div className="flex items-center justify-center gap-2 mb-6">
-        <div 
-          className="h-0.5 w-12 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
-        <div 
-          className="w-2 h-2 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
-        <div 
-          className="h-0.5 w-12 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
+    >
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Animated gradient orbs */}
+      <div
+        className="absolute w-[600px] h-[600px] rounded-full opacity-[0.07] blur-[120px]"
+        style={{
+          backgroundColor: primaryBlue,
+          top: '-15%',
+          left: '-5%',
+          animation: 'heroFloat 18s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06] blur-[120px]"
+        style={{
+          backgroundColor: accentGreen,
+          bottom: '-10%',
+          right: '-5%',
+          animation: 'heroFloat 22s ease-in-out infinite 4s',
+        }}
+      />
+      <div
+        className="absolute w-[300px] h-[300px] rounded-full opacity-[0.04] blur-[100px]"
+        style={{
+          backgroundColor: '#FFB84D',
+          top: '40%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          animation: 'heroFloat 15s ease-in-out infinite 2s',
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        {/* Badge */}
+        <div data-animate className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] mb-8">
+          <div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: primaryBlue }}
+          />
+          <span className="text-xs font-medium text-white/60 tracking-wide uppercase">
+            Frame your moments
+          </span>
+        </div>
+
+        <h1 data-animate className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight">
+          Make it{' '}
+          <span className="relative inline-block">
+            <span
+              className="relative z-10"
+              style={{ color: primaryBlue }}
+            >
+              stand out.
+            </span>
+            <span
+              className="absolute bottom-1 left-0 right-0 h-3 opacity-20 rounded-full blur-sm"
+              style={{ backgroundColor: primaryBlue }}
+            />
+          </span>
+          <br />
+          <span className="text-white/90">
+            <span
+              style={{ color: accentGreen }}
+              className="font-black"
+            >
+              FrameIt
+            </span>{' '}
+            now.
+          </span>
+        </h1>
+
+        <p data-animate className="text-lg sm:text-xl text-white/50 mb-10 max-w-lg mx-auto leading-relaxed font-normal">
+          Create, customize, and share stunning photo frames. Be post-ready in seconds.
+        </p>
+
+        {/* CTA */}
+        <div data-animate className="relative inline-block group">
+          <div
+            className="absolute -inset-1 rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+            style={{ backgroundColor: '#FFB84D' }}
+          />
+          <YellowButton size="lg" onClick={onGetStarted} className="relative text-black font-bold tracking-wide">
+            Get Started
+          </YellowButton>
+        </div>
+
+        {/* Scroll indicator */}
+        <div data-animate className="mt-20 flex flex-col items-center gap-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 font-medium">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
+        </div>
       </div>
-      <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white mb-6 leading-tight animate-fadeIn">
-        Make it stand out.
-        <br />
-        <span
-          style={{
-            color: primaryBlue,
-            fontWeight: 900,
-            textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 1px 0 rgba(0,0,0,0.3)',
-          }}
-        >
-          FrameIt
-        </span> <span className="text-white">now.</span>
-      </h1>
-      <p className="text-xl sm:text-2xl text-gray-200 mb-8 font-medium">
-        Create, customize, and be post-ready.
-      </p>
-      {/* Enhanced button with glow effect */}
-      <div className="relative inline-block">
-        <div 
-          className="absolute inset-0 rounded-full blur-xl opacity-50 pointer-events-none -z-10"
-          style={{ backgroundColor: '#FFB84D' }}
-        />
-        <YellowButton size="lg" onClick={onGetStarted} className="text-black">
-          Get Started
-        </YellowButton>
-      </div>
-    </div>
-    <div 
-      className="absolute bottom-0 left-0 right-0 h-32"
-      style={{
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.5) 50%, #1a1a1a 100%)'
-      }}
-    />
-  </section>
-);
+
+      {/* Bottom gradient fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, #0a0a0a 100%)',
+        }}
+      />
+    </section>
+  );
+};
 
 export default HeroSection;

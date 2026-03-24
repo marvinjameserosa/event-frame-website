@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import Header from '@/components/sections/landing/Navbar';
 import LandingFooter from '@/components/sections/landing/LandingFooter';
 import AboutSection from '@/components/sections/landing/AboutSection';
@@ -10,15 +9,8 @@ import HeroSection from '@/components/sections/landing/HeroSection';
 
 export default function LandingPage() {
   const router = useRouter();
-  const primaryBlue = '#1ED9C3'; // Arduino Day Teal
-  const accentGreen = '#FF8552'; // Arduino Day Orange
-
-  useEffect(() => {
-    document.documentElement.style.scrollBehavior = 'smooth';
-    return () => {
-      document.documentElement.style.scrollBehavior = '';
-    };
-  }, []);
+  const primaryBlue = '#1ED9C3';
+  const accentGreen = '#FF8552';
 
   const handleGetStarted = () => {
     router.push('/login');
@@ -28,13 +20,8 @@ export default function LandingPage() {
     <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
       <Header />
       <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />
-
-      {/* About Section */}
       <AboutSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
-
-      {/* Features Section */}
       <FeaturesSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
-
       <LandingFooter />
     </div>
   );

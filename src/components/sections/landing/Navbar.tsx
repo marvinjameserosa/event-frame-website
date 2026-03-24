@@ -1,6 +1,5 @@
 'use client';
 
-
 import { useRouter, usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -8,7 +7,6 @@ import Image from 'next/image';
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const headerBgColor = '#0a0a0a'; // Arduino Day dark theme
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -47,36 +45,44 @@ export default function Navbar() {
 
   return (
     <header
+      className="w-full text-white sticky top-0 z-50 transition-all duration-500"
       style={{
-        backgroundColor: scrolled ? '#151515' : headerBgColor,
-        color: '#fff',
-        boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.3)' : '0 4px 16px rgba(0, 0, 0, 0.3)',
-        transition: 'background 0.3s, color 0.3s, box-shadow 0.3s',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50
+        backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.85)' : 'rgba(10, 10, 10, 0.6)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
       }}
-      className="w-full text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div
-          className="text-xl font-bold cursor-pointer hover:opacity-80 transition-opacity text-white flex items-center gap-2"
+          className="text-xl font-bold cursor-pointer transition-all duration-300 text-white flex items-center gap-2 hover:scale-105"
           onClick={handleHomeClick}
         >
-          <Image 
-            src="/logo1.png" 
-            alt="ADPH Logo" 
-            width={35} 
+          <Image
+            src="/logo1.png"
+            alt="FrameIt Logo"
+            width={35}
             height={35}
             className="object-contain"
           />
-          FrameIt
+          <span className="tracking-tight">FrameIt</span>
         </div>
 
-        <nav className="flex space-x-6 items-center">
-          <button onClick={handleAboutClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">About Us</button>
-          <button onClick={handleFeaturesClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">Features</button>
-          <button onClick={handleHomeClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">Home</button>
+        <nav className="flex items-center gap-1">
+          {[
+            { label: 'Home', onClick: handleHomeClick },
+            { label: 'About', onClick: handleAboutClick },
+            { label: 'Features', onClick: handleFeaturesClick },
+          ].map((item) => (
+            <button
+              key={item.label}
+              onClick={item.onClick}
+              className="relative px-4 py-2 text-sm font-medium cursor-pointer text-white/80 hover:text-white transition-colors duration-300 rounded-lg hover:bg-white/5"
+            >
+              {item.label}
+            </button>
+          ))}
         </nav>
       </div>
     </header>
