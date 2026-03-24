@@ -23,7 +23,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <HeroSection onGetStarted={handleGetStarted} />
       <AboutSection />
