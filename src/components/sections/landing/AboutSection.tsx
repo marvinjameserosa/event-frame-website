@@ -3,6 +3,28 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
+/* Section-specific fireflies */
+const ABOUT_FIREFLIES = [
+  { top: '8%',  left: '15%', size: 6, drift: 1, dur: '10s', glow: '2.8s', delay: '0.5s' },
+  { top: '20%', left: '78%', size: 8, drift: 2, dur: '12s', glow: '3.2s', delay: '1.8s' },
+  { top: '45%', left: '90%', size: 5, drift: 3, dur: '11s', glow: '2.4s', delay: '0s' },
+  { top: '65%', left: '8%',  size: 7, drift: 1, dur: '13s', glow: '3s',   delay: '3s' },
+  { top: '80%', left: '60%', size: 6, drift: 2, dur: '10s', glow: '2.6s', delay: '2.2s' },
+  { top: '35%', left: '42%', size: 5, drift: 3, dur: '14s', glow: '3.4s', delay: '4s' },
+  { top: '55%', left: '68%', size: 7, drift: 1, dur: '9s',  glow: '2.8s', delay: '1s' },
+  { top: '15%', left: '52%', size: 6, drift: 2, dur: '11s', glow: '3s',   delay: '3.5s' },
+];
+
+/* Stars */
+const ABOUT_STARS = Array.from({ length: 20 }, (_, i) => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: Math.random() * 1.8 + 0.8,
+  delay: `${Math.random() * 5}s`,
+  dur: `${2.5 + Math.random() * 3.5}s`,
+  key: i,
+}));
+
 interface AboutSectionProps {
   primaryBlue?: string;
   accentGreen?: string;
@@ -27,10 +49,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       },
       { threshold: 0.2 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -53,6 +72,41 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       className="py-24 md:py-32 overflow-hidden scroll-mt-16 relative"
       style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0c1526 50%, #080e1a 100%)' }}
     >
+      {/* Stars */}
+      {ABOUT_STARS.map((s) => (
+        <div
+          key={s.key}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: s.size,
+            height: s.size,
+            top: s.top,
+            left: s.left,
+            backgroundColor: '#fff',
+            animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
+            zIndex: 1,
+          }}
+        />
+      ))}
+
+      {/* Fireflies */}
+      {ABOUT_FIREFLIES.map((f, i) => (
+        <div
+          key={`about-fly-${i}`}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: f.size,
+            height: f.size,
+            top: f.top,
+            left: f.left,
+            backgroundColor: '#FFB84D',
+            color: '#FFB84D',
+            animation: `fireflyDrift${f.drift} ${f.dur} ease-in-out infinite ${f.delay}, fireflyGlow ${f.glow} ease-in-out infinite ${f.delay}`,
+            zIndex: 2,
+          }}
+        />
+      ))}
+
       {/* Dotted grid pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -67,11 +121,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       {/* Subtle divider line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-      {/* Large background glow that shifts with scroll */}
+      {/* Background glow that shifts with scroll */}
       <div
         className="absolute w-[900px] h-[900px] rounded-full opacity-[0.04] blur-[180px] pointer-events-none"
         style={{
-          backgroundColor: primaryBlue,
+          backgroundColor: '#1a3a6e',
           left: '20%',
           top: '50%',
           transform: `translate(-50%, calc(-50% + ${scrollY * 80}px))`,
@@ -89,24 +143,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         }}
       />
 
-      {/* Floating geometric accents */}
-      <div
-        className="absolute w-32 h-32 border border-white/[0.03] rounded-3xl pointer-events-none"
-        style={{
-          top: '10%',
-          right: '5%',
-          animation: 'floatRotate 24s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute w-20 h-20 border border-white/[0.02] rounded-full pointer-events-none"
-        style={{
-          bottom: '15%',
-          left: '3%',
-          animation: 'floatRotate 20s ease-in-out infinite reverse',
-        }}
-      />
-
       <div className="max-w-6xl w-full mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-16 relative z-10">
         {/* Image side */}
         <div
@@ -119,14 +155,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           {/* Glow behind image */}
           <div
             className="absolute inset-0 rounded-3xl blur-[60px] opacity-20"
-            style={{ backgroundColor: primaryBlue }}
+            style={{ backgroundColor: '#1a3a6e' }}
           />
 
           {/* Rotating ring */}
           <div
             className="absolute w-[340px] h-[340px] rounded-full border border-dashed pointer-events-none"
             style={{
-              borderColor: `${primaryBlue}15`,
+              borderColor: 'rgba(26,58,110,0.15)',
               animation: 'spinSlow 30s linear infinite',
             }}
           />
@@ -134,7 +170,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           <div
             className="relative w-80 h-80 rounded-2xl overflow-hidden border border-white/10 group"
             style={{
-              boxShadow: `0 20px 60px rgba(30, 217, 195, 0.15)`,
+              boxShadow: '0 20px 60px rgba(26, 58, 110, 0.25)',
               animation: 'float 8s ease-in-out infinite',
             }}
           >
@@ -146,22 +182,21 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               sizes="320px"
               priority
             />
-            {/* Image overlay on hover */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               style={{
-                background: `linear-gradient(135deg, ${primaryBlue}20, transparent 60%)`,
+                background: `linear-gradient(135deg, rgba(26,58,110,0.2), transparent 60%)`,
               }}
             />
           </div>
 
-          {/* Floating accent dots with trails */}
+          {/* Accent dots */}
           <div
             className="absolute -top-4 -right-4 w-3 h-3 rounded-full"
             style={{
-              backgroundColor: primaryBlue,
+              backgroundColor: '#FFB84D',
               animation: 'pulse 3s ease-in-out infinite',
-              boxShadow: `0 0 12px ${primaryBlue}60`,
+              boxShadow: '0 0 12px rgba(255,184,77,0.6)',
             }}
           />
           <div
@@ -170,14 +205,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               backgroundColor: accentGreen,
               animation: 'pulse 3s ease-in-out infinite 1.5s',
               boxShadow: `0 0 10px ${accentGreen}60`,
-            }}
-          />
-          <div
-            className="absolute top-1/2 -right-6 w-1.5 h-1.5 rounded-full"
-            style={{
-              backgroundColor: '#FFB84D',
-              animation: 'pulse 4s ease-in-out infinite 0.5s',
-              boxShadow: '0 0 8px rgba(255,184,77,0.5)',
             }}
           />
         </div>
@@ -252,9 +279,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 />
                 <div
                   className="text-xl font-bold transition-colors duration-300 relative"
-                  style={{
-                    color: hoveredStat === i ? stat.color : 'white',
-                  }}
+                  style={{ color: hoveredStat === i ? stat.color : 'white' }}
                 >
                   {stat.value}
                 </div>

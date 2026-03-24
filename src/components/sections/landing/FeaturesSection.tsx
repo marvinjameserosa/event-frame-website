@@ -4,6 +4,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import FeatureCard from '../../ui/FeatureCard';
 import { Wand2, Zap, Share2 } from 'lucide-react';
 
+/* Section-specific fireflies */
+const FEATURE_FIREFLIES = [
+  { top: '10%', left: '20%', size: 7, drift: 1, dur: '11s', glow: '3s',   delay: '0s' },
+  { top: '25%', left: '75%', size: 6, drift: 2, dur: '13s', glow: '2.6s', delay: '2s' },
+  { top: '50%', left: '10%', size: 8, drift: 3, dur: '10s', glow: '3.2s', delay: '1s' },
+  { top: '70%', left: '55%', size: 5, drift: 1, dur: '12s', glow: '2.8s', delay: '3.5s' },
+  { top: '85%', left: '85%', size: 7, drift: 2, dur: '14s', glow: '2.4s', delay: '0.5s' },
+  { top: '40%', left: '45%', size: 6, drift: 3, dur: '9s',  glow: '3.4s', delay: '4s' },
+];
+
+/* Stars */
+const FEATURE_STARS = Array.from({ length: 18 }, (_, i) => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: Math.random() * 1.8 + 0.8,
+  delay: `${Math.random() * 5}s`,
+  dur: `${2.5 + Math.random() * 3.5}s`,
+  key: i,
+}));
+
 interface FeaturesSectionProps {
   primaryBlue?: string;
   accentGreen?: string;
@@ -27,10 +47,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       },
       { threshold: 0.15 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -77,6 +94,41 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       className="py-24 md:py-32 scroll-mt-16 relative overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0a1222 50%, #080e1a 100%)' }}
     >
+      {/* Stars */}
+      {FEATURE_STARS.map((s) => (
+        <div
+          key={s.key}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: s.size,
+            height: s.size,
+            top: s.top,
+            left: s.left,
+            backgroundColor: '#fff',
+            animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
+            zIndex: 1,
+          }}
+        />
+      ))}
+
+      {/* Fireflies */}
+      {FEATURE_FIREFLIES.map((f, i) => (
+        <div
+          key={`feat-fly-${i}`}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: f.size,
+            height: f.size,
+            top: f.top,
+            left: f.left,
+            backgroundColor: '#FFB84D',
+            color: '#FFB84D',
+            animation: `fireflyDrift${f.drift} ${f.dur} ease-in-out infinite ${f.delay}, fireflyGlow ${f.glow} ease-in-out infinite ${f.delay}`,
+            zIndex: 2,
+          }}
+        />
+      ))}
+
       {/* Subtle divider line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
@@ -84,7 +136,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       <div
         className="absolute w-[800px] h-[800px] rounded-full opacity-[0.04] blur-[150px] pointer-events-none"
         style={{
-          backgroundColor: primaryBlue,
+          backgroundColor: '#1a3a6e',
           left: '50%',
           top: '50%',
           transform: `translate(-50%, calc(-50% + ${scrollY * 60}px))`,
@@ -94,41 +146,11 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       <div
         className="absolute w-[500px] h-[500px] rounded-full opacity-[0.03] blur-[120px] pointer-events-none"
         style={{
-          backgroundColor: accentGreen,
+          backgroundColor: '#FFB84D',
           left: '10%',
           top: '20%',
           transform: `translate(0, ${scrollY * -40}px)`,
           transition: 'transform 0.3s ease-out',
-        }}
-      />
-
-      {/* Floating shapes */}
-      <div
-        className="absolute w-28 h-28 border border-white/[0.03] rounded-3xl pointer-events-none"
-        style={{
-          bottom: '10%',
-          left: '5%',
-          animation: 'floatRotate 22s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute w-14 h-14 border border-white/[0.02] rounded-full pointer-events-none"
-        style={{
-          top: '15%',
-          right: '8%',
-          animation: 'floatRotate 18s ease-in-out infinite reverse',
-        }}
-      />
-
-      {/* Animated horizontal line accents */}
-      <div
-        className="absolute h-px opacity-[0.04] pointer-events-none"
-        style={{
-          width: '25%',
-          top: '20%',
-          right: '-5%',
-          background: `linear-gradient(90deg, transparent, ${primaryBlue}, transparent)`,
-          animation: 'streakMove 12s ease-in-out infinite',
         }}
       />
 
