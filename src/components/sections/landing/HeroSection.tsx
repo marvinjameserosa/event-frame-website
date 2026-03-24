@@ -4,12 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
 
-/* ── Polaroid layout: curved fan arrangement ──
-   Photos sweep in a gentle arc from the sides, fanning outward.
-   Left fan:  3 photos curving from top-left toward bottom,
-   Right fan: 3 photos mirrored,
-   Plus 2 peeking in from the very bottom for depth.
-*/
+/* ── Polaroid layout: curved fan arrangement ── */
 const HERO_PHOTOS: {
   src: string;
   caption: string;
@@ -22,22 +17,17 @@ const HERO_PHOTOS: {
   right?: string;
   z: number;
 }[] = [
-  // -- Left fan arc (sweeping from top-left downward) --
   { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 230, h: 280, rotate: -18,  top: '4%',  left: '-2%', z: 5 },
   { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 210, h: 260, rotate: -10,  top: '32%', left: '3%',  z: 4 },
   { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 200, h: 250, rotate: -4,   top: '60%', left: '1%',  z: 3 },
-
-  // -- Right fan arc (mirrored sweep) --
   { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 230, h: 280, rotate: 18,   top: '4%',  right: '-2%', z: 5 },
   { src: '/hero/photo5.jpg', caption: 'Party time',      w: 210, h: 260, rotate: 10,   top: '32%', right: '3%',  z: 4 },
   { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 200, h: 250, rotate: 4,    top: '60%', right: '1%',  z: 3 },
-
-  // -- Bottom peeking photos --
   { src: '/hero/photo4.jpg', caption: 'Memories',        w: 190, h: 240, rotate: -7,   bottom: '-6%', left: '18%', z: 2 },
   { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 190, h: 240, rotate: 7,    bottom: '-6%', right: '18%', z: 2 },
 ];
 
-/* ── Fireflies: warm golden lanterns in a night sky ── */
+/* ── Fireflies: warm amber lanterns ── */
 const FIREFLIES: {
   top: string;
   left: string;
@@ -49,24 +39,24 @@ const FIREFLIES: {
   delay: string;
 }[] = [
   { top: '6%',  left: '22%', size: 7,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3s',   delay: '0s' },
-  { top: '12%', left: '68%', size: 9,  color: '#ffe5a0', drift: 2, driftDur: '11s', glowDur: '2.6s', delay: '1.2s' },
+  { top: '12%', left: '68%', size: 9,  color: '#f5d89a', drift: 2, driftDur: '11s', glowDur: '2.6s', delay: '1.2s' },
   { top: '25%', left: '35%', size: 6,  color: '#FFB84D', drift: 3, driftDur: '13s', glowDur: '3.4s', delay: '0.4s' },
-  { top: '34%', left: '58%', size: 8,  color: '#ffe5a0', drift: 1, driftDur: '10s', glowDur: '2.8s', delay: '2s' },
+  { top: '34%', left: '58%', size: 8,  color: '#f5d89a', drift: 1, driftDur: '10s', glowDur: '2.8s', delay: '2s' },
   { top: '48%', left: '25%', size: 5,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3.2s', delay: '3.5s' },
-  { top: '55%', left: '74%', size: 7,  color: '#ffe5a0', drift: 3, driftDur: '12s', glowDur: '2.4s', delay: '0.8s' },
+  { top: '55%', left: '74%', size: 7,  color: '#f5d89a', drift: 3, driftDur: '12s', glowDur: '2.4s', delay: '0.8s' },
   { top: '68%', left: '44%', size: 9,  color: '#FFB84D', drift: 1, driftDur: '11s', glowDur: '3s',   delay: '4s' },
-  { top: '76%', left: '62%', size: 6,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.6s', delay: '1.6s' },
+  { top: '76%', left: '62%', size: 6,  color: '#f5d89a', drift: 2, driftDur: '13s', glowDur: '2.6s', delay: '1.6s' },
   { top: '10%', left: '48%', size: 8,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3.4s', delay: '2.8s' },
-  { top: '42%', left: '82%', size: 5,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.2s', delay: '5s' },
+  { top: '42%', left: '82%', size: 5,  color: '#f5d89a', drift: 1, driftDur: '12s', glowDur: '2.2s', delay: '5s' },
   { top: '85%', left: '15%', size: 7,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3s',   delay: '0.6s' },
-  { top: '30%', left: '14%', size: 6,  color: '#ffe5a0', drift: 3, driftDur: '11s', glowDur: '2.8s', delay: '3s' },
+  { top: '30%', left: '14%', size: 6,  color: '#f5d89a', drift: 3, driftDur: '11s', glowDur: '2.8s', delay: '3s' },
   { top: '18%', left: '85%', size: 8,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3.2s', delay: '1s' },
-  { top: '62%', left: '32%', size: 5,  color: '#ffe5a0', drift: 2, driftDur: '13s', glowDur: '2.4s', delay: '4.5s' },
+  { top: '62%', left: '32%', size: 5,  color: '#f5d89a', drift: 2, driftDur: '13s', glowDur: '2.4s', delay: '4.5s' },
   { top: '90%', left: '52%', size: 7,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3s',   delay: '2.2s' },
-  { top: '4%',  left: '42%', size: 6,  color: '#ffe5a0', drift: 1, driftDur: '12s', glowDur: '2.6s', delay: '3.8s' },
+  { top: '4%',  left: '42%', size: 6,  color: '#f5d89a', drift: 1, driftDur: '12s', glowDur: '2.6s', delay: '3.8s' },
 ];
 
-/* ── Tiny twinkling stars ── */
+/* ── Warm twinkling stars ── */
 const STARS = Array.from({ length: 30 }, (_, i) => ({
   top: `${Math.random() * 100}%`,
   left: `${Math.random() * 100}%`,
@@ -83,14 +73,13 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  primaryBlue = '#0d7d72',
-  accentGreen = '#FF8552',
+  primaryBlue = '#D4952B',
+  accentGreen = '#E87D3E',
   onGetStarted,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
-  /* Staggered entrance */
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -108,7 +97,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     });
   }, []);
 
-  /* Mouse tracking */
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       const section = sectionRef.current;
@@ -128,10 +116,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        background: 'linear-gradient(170deg, #0a1228 0%, #080e1a 30%, #0c1526 65%, #080e1a 100%)',
+        background: 'linear-gradient(170deg, #0f0b06 0%, #0a0806 30%, #110e0a 65%, #0a0806 100%)',
       }}
     >
-      {/* Twinkling stars layer */}
+      {/* Warm twinkling stars */}
       {STARS.map((s) => (
         <div
           key={s.key}
@@ -141,20 +129,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             height: s.size,
             top: s.top,
             left: s.left,
-            backgroundColor: '#fff',
+            backgroundColor: '#f0e6d4',
             animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
             zIndex: 1,
           }}
         />
       ))}
 
-      {/* Deep sky ambient glows */}
+      {/* Warm ambient glows -- lantern pools */}
       <div
-        className="absolute rounded-full opacity-[0.06] blur-[180px] pointer-events-none"
+        className="absolute rounded-full opacity-[0.07] blur-[180px] pointer-events-none"
         style={{
           width: 800,
           height: 800,
-          backgroundColor: '#1a3a6e',
+          backgroundColor: '#D4952B',
           top: '-20%',
           left: '5%',
           animation: 'heroFloat 24s ease-in-out infinite',
@@ -165,7 +153,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         style={{
           width: 600,
           height: 600,
-          backgroundColor: '#0d7d72',
+          backgroundColor: '#E87D3E',
           bottom: '-5%',
           right: '10%',
           animation: 'heroFloat 28s ease-in-out infinite 4s',
@@ -184,20 +172,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Mouse-follow glow */}
+      {/* Mouse-follow glow -- warm */}
       <div
-        className="absolute rounded-full opacity-[0.05] blur-[120px] pointer-events-none transition-all duration-[2500ms] ease-out"
+        className="absolute rounded-full opacity-[0.06] blur-[120px] pointer-events-none transition-all duration-[2500ms] ease-out"
         style={{
           width: 600,
           height: 600,
-          background: `radial-gradient(circle, #1a3a6e, transparent 70%)`,
+          background: `radial-gradient(circle, #D4952B, transparent 70%)`,
           left: `${mousePos.x * 100}%`,
           top: `${mousePos.y * 100}%`,
           transform: 'translate(-50%, -50%)',
         }}
       />
 
-      {/* ── Fireflies ── */}
+      {/* Fireflies */}
       {FIREFLIES.map((f, i) => (
         <div
           key={`fly-${i}`}
@@ -215,7 +203,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         />
       ))}
 
-      {/* ── Polaroid photos -- left & right cascades ── */}
+      {/* Polaroid photos */}
       {HERO_PHOTOS.map((photo, i) => {
         const parallaxX = (mousePos.x - 0.5) * (5 + i * 1.5);
         const parallaxY = (mousePos.y - 0.5) * (5 + i * 1.5);
@@ -238,9 +226,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <div
               className="rounded-sm overflow-hidden"
               style={{
-                background: '#f5f0e8',
+                background: '#f0e6d4',
                 padding: '10px 10px 44px 10px',
-                boxShadow: '0 10px 50px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5)',
+                boxShadow: '0 10px 50px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)',
               }}
             >
               <Image
@@ -253,12 +241,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   width: photo.w - 20,
                   height: photo.h - 54,
                   display: 'block',
-                  filter: 'saturate(0.75) contrast(1.05) brightness(0.92)',
+                  filter: 'saturate(0.7) contrast(1.1) brightness(0.85) sepia(0.15)',
                 }}
               />
               <p
                 className="text-center mt-2 font-serif italic"
-                style={{ fontSize: 11, color: '#8a7e6b', letterSpacing: '0.02em' }}
+                style={{ fontSize: 11, color: '#8a7560', letterSpacing: '0.02em' }}
               >
                 {photo.caption}
               </p>
@@ -267,7 +255,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         );
       })}
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
         <div
           data-animate
@@ -277,14 +265,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             className="w-1.5 h-1.5 rounded-full"
             style={{ backgroundColor: '#FFB84D', animation: 'pulse 2s ease-in-out infinite' }}
           />
-          <span className="text-xs font-medium text-white/60 tracking-wide uppercase">
+          <span className="text-xs font-medium tracking-wide uppercase" style={{ color: '#f0e6d4', opacity: 0.6 }}>
             Frame your moments
           </span>
         </div>
 
         <h1
           data-animate
-          className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight"
+          className="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-6 leading-[1.05] tracking-tight"
+          style={{ color: '#f0e6d4' }}
         >
           Make it{' '}
           <span className="relative inline-block">
@@ -297,7 +286,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             />
           </span>
           <br />
-          <span className="text-white/90">
+          <span style={{ color: 'rgba(240,230,212,0.9)' }}>
             <span style={{ color: accentGreen }} className="font-black">
               FrameIt
             </span>{' '}
@@ -307,7 +296,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
         <p
           data-animate
-          className="text-lg sm:text-xl text-white/45 mb-10 max-w-lg mx-auto leading-relaxed font-normal"
+          className="text-lg sm:text-xl mb-10 max-w-lg mx-auto leading-relaxed font-normal"
+          style={{ color: 'rgba(240,230,212,0.4)' }}
         >
           Create, customize, and share stunning photo frames. Be post-ready in seconds.
         </p>
@@ -323,7 +313,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         <div data-animate className="mt-20 flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-white/20 font-medium">
+          <span className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: 'rgba(240,230,212,0.2)' }}>
             Scroll
           </span>
           <div className="w-px h-8 scroll-line" />
@@ -334,7 +324,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <div
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #080e1a 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, #0a0806 100%)',
         }}
       />
     </section>

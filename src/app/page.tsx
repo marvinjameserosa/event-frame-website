@@ -10,20 +10,20 @@ import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 export default function LandingPage() {
   const router = useRouter();
-  const primaryBlue = '#1ED9C3';
-  const accentGreen = '#FF8552';
+  const primaryAmber = '#D4952B';
+  const accentOrange = '#E87D3E';
 
   const handleGetStarted = () => {
     router.push('/login');
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080e1a] relative">
+    <div className="min-h-screen flex flex-col bg-[#0a0806] relative">
       <AnimatedBackground />
       <Header />
-      <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />
-      <AboutSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
-      <FeaturesSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
+      <HeroSection primaryBlue={primaryAmber} accentGreen={accentOrange} onGetStarted={handleGetStarted} />
+      <AboutSection primaryBlue={primaryAmber} accentGreen={accentOrange} />
+      <FeaturesSection primaryBlue={primaryAmber} accentGreen={accentOrange} />
       <LandingFooter />
     </div>
   );

@@ -32,13 +32,13 @@ export default function Navbar() {
 
   return (
     <header
-      className="w-full text-white fixed top-0 left-0 right-0 z-50"
+      className="w-full fixed top-0 left-0 right-0 z-50"
       style={{
-        backgroundColor: scrolled ? 'rgba(8, 14, 26, 0.8)' : 'rgba(0, 0, 0, 0)',
+        backgroundColor: scrolled ? 'rgba(10, 8, 6, 0.85)' : 'rgba(0, 0, 0, 0)',
         backdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(240,230,212,0.06)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.4)' : 'none',
         transition: 'background-color 0.6s ease, backdrop-filter 0.6s ease, border-bottom 0.6s ease, box-shadow 0.6s ease, opacity 0.5s ease, transform 0.5s ease',
         opacity: mounted ? 1 : 0,
         transform: mounted ? 'translateY(0)' : 'translateY(-10px)',
@@ -46,7 +46,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div
-          className="text-xl font-bold cursor-pointer transition-all duration-300 text-white flex items-center gap-2 hover:scale-105 group"
+          className="text-xl font-bold cursor-pointer transition-all duration-300 flex items-center gap-2 hover:scale-105 group"
+          style={{ color: '#f0e6d4' }}
           onClick={() => handleNav('/')}
         >
           <div className="relative">
@@ -74,7 +75,10 @@ export default function Navbar() {
             <button
               key={item.label}
               onClick={() => handleNav(item.target)}
-              className="relative px-4 py-2 text-sm font-medium cursor-pointer text-white/60 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/[0.04] group"
+              className="relative px-4 py-2 text-sm font-medium cursor-pointer transition-all duration-300 rounded-lg group"
+              style={{ color: 'rgba(240,230,212,0.55)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#f0e6d4')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(240,230,212,0.55)')}
             >
               {item.label}
               <span

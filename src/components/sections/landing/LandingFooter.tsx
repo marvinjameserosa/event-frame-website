@@ -5,7 +5,7 @@ export default function LandingFooter() {
 
   return (
     <footer className="w-full relative overflow-hidden" style={{ background: 'transparent' }}>
-      {/* A couple of subtle fireflies */}
+      {/* Warm fireflies */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
@@ -32,7 +32,7 @@ export default function LandingFooter() {
       />
 
       <div className="max-w-7xl mx-auto px-6 py-6 text-center relative z-10">
-        <p className="text-sm text-white/30">
+        <p className="text-sm" style={{ color: 'rgba(240,230,212,0.25)' }}>
           &copy; {currentYear} FrameIt. All rights reserved.
         </p>
       </div>

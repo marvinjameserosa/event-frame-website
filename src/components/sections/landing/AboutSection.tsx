@@ -15,7 +15,6 @@ const ABOUT_FIREFLIES = [
   { top: '15%', left: '52%', size: 6, drift: 2, dur: '11s', glow: '3s',   delay: '3.5s' },
 ];
 
-/* Stars */
 const ABOUT_STARS = Array.from({ length: 20 }, (_, i) => ({
   top: `${Math.random() * 100}%`,
   left: `${Math.random() * 100}%`,
@@ -31,8 +30,8 @@ interface AboutSectionProps {
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({
-  primaryBlue = '#1ED9C3',
-  accentGreen = '#FF8552',
+  primaryBlue = '#D4952B',
+  accentGreen = '#E87D3E',
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -70,7 +69,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       ref={sectionRef}
       id="about-us"
       className="py-24 md:py-32 overflow-hidden scroll-mt-16 relative"
-      style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0c1526 50%, #080e1a 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #0a0806 0%, #110e0a 50%, #0a0806 100%)' }}
     >
       {/* Stars */}
       {ABOUT_STARS.map((s) => (
@@ -82,7 +81,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             height: s.size,
             top: s.top,
             left: s.left,
-            backgroundColor: '#fff',
+            backgroundColor: '#f0e6d4',
             animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
             zIndex: 1,
           }}
@@ -107,11 +106,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         />
       ))}
 
-      {/* Dotted grid pattern */}
+      {/* Dotted grid pattern -- warm */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(255,229,160,0.04) 1.5px, transparent 1.5px)`,
+          backgroundImage: `radial-gradient(circle, rgba(240,230,212,0.03) 1.5px, transparent 1.5px)`,
           backgroundSize: '32px 32px',
           maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%)',
           WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%)',
@@ -119,13 +118,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       />
 
       {/* Subtle divider line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24" style={{ background: 'linear-gradient(to bottom, transparent, rgba(240,230,212,0.08), transparent)' }} />
 
-      {/* Background glow that shifts with scroll */}
+      {/* Background glows */}
       <div
-        className="absolute w-[900px] h-[900px] rounded-full opacity-[0.04] blur-[180px] pointer-events-none"
+        className="absolute w-[900px] h-[900px] rounded-full opacity-[0.05] blur-[180px] pointer-events-none"
         style={{
-          backgroundColor: '#1a3a6e',
+          backgroundColor: '#D4952B',
           left: '20%',
           top: '50%',
           transform: `translate(-50%, calc(-50% + ${scrollY * 80}px))`,
@@ -152,25 +151,24 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             transform: isVisible ? 'translateX(0)' : 'translateX(-60px)',
           }}
         >
-          {/* Glow behind image */}
           <div
             className="absolute inset-0 rounded-3xl blur-[60px] opacity-20"
-            style={{ backgroundColor: '#1a3a6e' }}
+            style={{ backgroundColor: '#D4952B' }}
           />
 
-          {/* Rotating ring */}
           <div
             className="absolute w-[340px] h-[340px] rounded-full border border-dashed pointer-events-none"
             style={{
-              borderColor: 'rgba(26,58,110,0.15)',
+              borderColor: 'rgba(212,149,43,0.12)',
               animation: 'spinSlow 30s linear infinite',
             }}
           />
 
           <div
-            className="relative w-80 h-80 rounded-2xl overflow-hidden border border-white/10 group"
+            className="relative w-80 h-80 rounded-2xl overflow-hidden group"
             style={{
-              boxShadow: '0 20px 60px rgba(26, 58, 110, 0.25)',
+              border: '1px solid rgba(240,230,212,0.1)',
+              boxShadow: '0 20px 60px rgba(212, 149, 43, 0.15)',
               animation: 'float 8s ease-in-out infinite',
             }}
           >
@@ -185,12 +183,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               style={{
-                background: `linear-gradient(135deg, rgba(26,58,110,0.2), transparent 60%)`,
+                background: `linear-gradient(135deg, rgba(212,149,43,0.15), transparent 60%)`,
               }}
             />
           </div>
 
-          {/* Accent dots */}
           <div
             className="absolute -top-4 -right-4 w-3 h-3 rounded-full"
             style={{
@@ -217,11 +214,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             transform: isVisible ? 'translateX(0)' : 'translateX(60px)',
           }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">The story</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-6" style={{ borderColor: 'rgba(240,230,212,0.1)', background: 'rgba(240,230,212,0.03)' }}>
+            <span className="text-xs font-medium tracking-wide uppercase" style={{ color: 'rgba(240,230,212,0.5)' }}>The story</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6 tracking-tight" style={{ color: '#f0e6d4' }}>
             A{' '}
             <span className="relative inline-block">
               <span style={{ color: primaryBlue }}>side project</span>
@@ -251,11 +248,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             bigger.
           </h2>
 
-          <p className="text-white/40 text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed" style={{ color: 'rgba(240,230,212,0.35)' }}>
             FrameIt started as a fun workaround to avoid watermarks on DP Blast. What began as a quick hack turned into a collaborative effort, adopted by Arduino Day PH and ICpEP for their events. Now it{"'"}s open and free for everyone to use.
           </p>
 
-          {/* Stats row */}
           <div className="flex gap-8 mt-8 justify-center md:justify-start">
             {[
               { value: 'Arduino', label: 'Day PH', color: primaryBlue },
@@ -277,11 +273,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 />
                 <div
                   className="text-xl font-bold transition-colors duration-300 relative"
-                  style={{ color: hoveredStat === i ? stat.color : 'white' }}
+                  style={{ color: hoveredStat === i ? stat.color : '#f0e6d4' }}
                 >
                   {stat.value}
                 </div>
-                <div className="text-xs text-white/30 mt-1 relative">{stat.label}</div>
+                <div className="text-xs mt-1 relative" style={{ color: 'rgba(240,230,212,0.25)' }}>{stat.label}</div>
               </div>
             ))}
           </div>

@@ -38,9 +38,10 @@ export default function FeatureCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative rounded-2xl p-8 transition-all duration-500 group cursor-default border border-white/[0.06] hover:border-white/[0.12] overflow-hidden"
+      className="relative rounded-2xl p-8 transition-all duration-500 group cursor-default overflow-hidden"
       style={{
-        background: 'rgba(255, 255, 255, 0.02)',
+        background: 'rgba(240, 230, 212, 0.02)',
+        border: '1px solid rgba(240,230,212,0.06)',
         transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
       }}
     >
@@ -99,8 +100,8 @@ export default function FeatureCard({
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-white mb-3 tracking-tight">{title}</h3>
-        <p className="text-white/40 leading-relaxed text-sm group-hover:text-white/50 transition-colors duration-500">
+        <h3 className="text-xl font-bold mb-3 tracking-tight" style={{ color: '#f0e6d4' }}>{title}</h3>
+        <p className="leading-relaxed text-sm transition-colors duration-500" style={{ color: 'rgba(240,230,212,0.35)' }}>
           {description}
         </p>
       </div>

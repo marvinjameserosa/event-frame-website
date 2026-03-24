@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import FeatureCard from '../../ui/FeatureCard';
 import { Wand2, Zap, Share2 } from 'lucide-react';
 
-/* Section-specific fireflies */
 const FEATURE_FIREFLIES = [
   { top: '10%', left: '20%', size: 7, drift: 1, dur: '11s', glow: '3s',   delay: '0s' },
   { top: '25%', left: '75%', size: 6, drift: 2, dur: '13s', glow: '2.6s', delay: '2s' },
@@ -14,7 +13,6 @@ const FEATURE_FIREFLIES = [
   { top: '40%', left: '45%', size: 6, drift: 3, dur: '9s',  glow: '3.4s', delay: '4s' },
 ];
 
-/* Stars */
 const FEATURE_STARS = Array.from({ length: 18 }, (_, i) => ({
   top: `${Math.random() * 100}%`,
   left: `${Math.random() * 100}%`,
@@ -30,8 +28,8 @@ interface FeaturesSectionProps {
 }
 
 const FeaturesSection: React.FC<FeaturesSectionProps> = ({
-  primaryBlue = '#1ED9C3',
-  accentGreen = '#FF8552',
+  primaryBlue = '#D4952B',
+  accentGreen = '#E87D3E',
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -92,7 +90,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       ref={sectionRef}
       id="features"
       className="py-24 md:py-32 scroll-mt-16 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0a1222 50%, #080e1a 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #0a0806 0%, #0f0b06 50%, #0a0806 100%)' }}
     >
       {/* Stars */}
       {FEATURE_STARS.map((s) => (
@@ -104,7 +102,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
             height: s.size,
             top: s.top,
             left: s.left,
-            backgroundColor: '#fff',
+            backgroundColor: '#f0e6d4',
             animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
             zIndex: 1,
           }}
@@ -129,14 +127,14 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
         />
       ))}
 
-      {/* Subtle divider line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+      {/* Divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24" style={{ background: 'linear-gradient(to bottom, transparent, rgba(240,230,212,0.08), transparent)' }} />
 
-      {/* Background glows with parallax */}
+      {/* Background glows */}
       <div
         className="absolute w-[800px] h-[800px] rounded-full opacity-[0.04] blur-[150px] pointer-events-none"
         style={{
-          backgroundColor: '#1a3a6e',
+          backgroundColor: '#D4952B',
           left: '50%',
           top: '50%',
           transform: `translate(-50%, calc(-50% + ${scrollY * 60}px))`,
@@ -155,7 +153,6 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* Header */}
         <div
           className="text-center mb-20 transition-all duration-1000"
           style={{
@@ -163,13 +160,13 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
           }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-6" style={{ borderColor: 'rgba(240,230,212,0.1)', background: 'rgba(240,230,212,0.03)' }}>
+            <span className="text-xs font-medium tracking-wide uppercase" style={{ color: 'rgba(240,230,212,0.5)' }}>
               Features
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ color: '#f0e6d4' }}>
             Why we{' '}
             <span style={{ color: primaryBlue }}>built</span> this
             <br />
@@ -177,7 +174,6 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
           </h2>
         </div>
 
-        {/* Feature cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <div

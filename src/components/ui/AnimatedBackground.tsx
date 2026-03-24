@@ -39,12 +39,11 @@ export default function AnimatedBackground() {
         this.vy = (Math.random() - 0.5) * 0.4;
         this.radius = Math.random() * 2 + 0.5;
         this.baseAlpha = Math.random() * 0.4 + 0.1;
-        const colors = ['26, 58, 110', '13, 125, 114', '255, 184, 77'];
+        const colors = ['212, 149, 43', '232, 125, 62', '255, 184, 77'];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
       update(w: number, h: number, mx: number, my: number) {
-        // Mouse repulsion
         const dx = this.x - mx;
         const dy = this.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -54,7 +53,6 @@ export default function AnimatedBackground() {
           this.vy += (dy / dist) * force * 0.3;
         }
 
-        // Damping
         this.vx *= 0.98;
         this.vy *= 0.98;
 
@@ -91,11 +89,11 @@ export default function AnimatedBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < CONNECTION_DISTANCE) {
-            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.08;
+            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.06;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(26, 58, 110, ${alpha})`;
+            ctx.strokeStyle = `rgba(212, 149, 43, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
