@@ -1,8 +1,9 @@
 const BottomLabel: React.FC = () => {
+    const currentYear = new Date().getFullYear();
     return (
         <footer className="w-full text-center text-xs text-gray-500 py-4">
             <div className="max-w-7xl mx-auto">
-                © 2025 ADPH - Arduino Day Philippines. All rights reserved. | Designed for your story.
+                &copy; {currentYear} FrameIt. All rights reserved.
             </div>
         </footer>
     );

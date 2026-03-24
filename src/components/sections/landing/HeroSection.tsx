@@ -1,5 +1,70 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
+
+/* ── Polaroid layout: curved fan arrangement ── */
+const HERO_PHOTOS: {
+  src: string;
+  caption: string;
+  w: number;
+  h: number;
+  rotate: number;
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+  z: number;
+}[] = [
+  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 230, h: 280, rotate: -18,  top: '4%',  left: '-2%', z: 5 },
+  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 210, h: 260, rotate: -10,  top: '32%', left: '3%',  z: 4 },
+  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 200, h: 250, rotate: -4,   top: '60%', left: '1%',  z: 3 },
+  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 230, h: 280, rotate: 18,   top: '4%',  right: '-2%', z: 5 },
+  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 210, h: 260, rotate: 10,   top: '32%', right: '3%',  z: 4 },
+  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 200, h: 250, rotate: 4,    top: '60%', right: '1%',  z: 3 },
+  { src: '/hero/photo4.jpg', caption: 'Memories',        w: 190, h: 240, rotate: -7,   bottom: '-6%', left: '18%', z: 2 },
+  { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 190, h: 240, rotate: 7,    bottom: '-6%', right: '18%', z: 2 },
+];
+
+/* ── Fireflies: warm amber lanterns ── */
+const FIREFLIES: {
+  top: string;
+  left: string;
+  size: number;
+  color: string;
+  drift: 1 | 2 | 3;
+  driftDur: string;
+  glowDur: string;
+  delay: string;
+}[] = [
+  { top: '6%',  left: '22%', size: 7,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3s',   delay: '0s' },
+  { top: '12%', left: '68%', size: 9,  color: '#f5d89a', drift: 2, driftDur: '11s', glowDur: '2.6s', delay: '1.2s' },
+  { top: '25%', left: '35%', size: 6,  color: '#FFB84D', drift: 3, driftDur: '13s', glowDur: '3.4s', delay: '0.4s' },
+  { top: '34%', left: '58%', size: 8,  color: '#f5d89a', drift: 1, driftDur: '10s', glowDur: '2.8s', delay: '2s' },
+  { top: '48%', left: '25%', size: 5,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3.2s', delay: '3.5s' },
+  { top: '55%', left: '74%', size: 7,  color: '#f5d89a', drift: 3, driftDur: '12s', glowDur: '2.4s', delay: '0.8s' },
+  { top: '68%', left: '44%', size: 9,  color: '#FFB84D', drift: 1, driftDur: '11s', glowDur: '3s',   delay: '4s' },
+  { top: '76%', left: '62%', size: 6,  color: '#f5d89a', drift: 2, driftDur: '13s', glowDur: '2.6s', delay: '1.6s' },
+  { top: '10%', left: '48%', size: 8,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3.4s', delay: '2.8s' },
+  { top: '42%', left: '82%', size: 5,  color: '#f5d89a', drift: 1, driftDur: '12s', glowDur: '2.2s', delay: '5s' },
+  { top: '85%', left: '15%', size: 7,  color: '#FFB84D', drift: 2, driftDur: '14s', glowDur: '3s',   delay: '0.6s' },
+  { top: '30%', left: '14%', size: 6,  color: '#f5d89a', drift: 3, driftDur: '11s', glowDur: '2.8s', delay: '3s' },
+  { top: '18%', left: '85%', size: 8,  color: '#FFB84D', drift: 1, driftDur: '9s',  glowDur: '3.2s', delay: '1s' },
+  { top: '62%', left: '32%', size: 5,  color: '#f5d89a', drift: 2, driftDur: '13s', glowDur: '2.4s', delay: '4.5s' },
+  { top: '90%', left: '52%', size: 7,  color: '#FFB84D', drift: 3, driftDur: '10s', glowDur: '3s',   delay: '2.2s' },
+  { top: '4%',  left: '42%', size: 6,  color: '#f5d89a', drift: 1, driftDur: '12s', glowDur: '2.6s', delay: '3.8s' },
+];
+
+/* ── Warm twinkling stars ── */
+const STARS = Array.from({ length: 30 }, (_, i) => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: Math.random() * 2 + 1,
+  delay: `${Math.random() * 6}s`,
+  dur: `${2 + Math.random() * 4}s`,
+  key: i,
+}));
 
 interface HeroSectionProps {
   primaryBlue?: string;
@@ -7,94 +72,263 @@ interface HeroSectionProps {
   onGetStarted: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ primaryBlue = '#1ED9C3', accentGreen = '#FF8552', onGetStarted }) => (
-  <section 
-    className="relative min-h-[600px] flex items-center justify-center overflow-hidden"
-    style={{
-      background: 'linear-gradient(to bottom, #0a0a0a 0%, #151515 50%, #1a1a1a 100%)',
-    }}
-  >
-    <div 
-      className="absolute inset-0"
+const HeroSection: React.FC<HeroSectionProps> = ({
+  primaryBlue = '#D4952B',
+  accentGreen = '#E87D3E',
+  onGetStarted,
+}) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const children = section.querySelectorAll('[data-animate]');
+    children.forEach((child, i) => {
+      const el = child as HTMLElement;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        el.style.transition =
+          'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 150 + i * 120);
+    });
+  }, []);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      setMousePos({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `
-          radial-gradient(circle at top right, rgba(30, 217, 195, 0.08) 1px, transparent 1px),
-          radial-gradient(circle at 70% 30%, rgba(255, 133, 82, 0.06) 1.5px, transparent 1.5px),
-          radial-gradient(circle at 50% 60%, rgba(30, 217, 195, 0.05) 2px, transparent 2px)
-        `,
-        backgroundSize: '60px 60px, 80px 80px, 100px 100px',
-        backgroundPosition: 'top right, 20% 20%, 50% 50%'
+        background: 'linear-gradient(170deg, #0f0b06 0%, #0a0806 30%, #110e0a 65%, #0a0806 100%)',
       }}
-    />
-    {/* Floating decorative shapes */}
-    <div 
-      className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
-      style={{ 
-        backgroundColor: accentGreen,
-        top: '5%',
-        left: '10%',
-        animation: 'heroFloat 12s ease-in-out infinite'
-      }}
-    />
-    <div 
-      className="absolute w-80 h-80 rounded-full opacity-15 blur-3xl"
-      style={{ 
-        backgroundColor: primaryBlue,
-        bottom: '20%',
-        right: '15%',
-        animation: 'heroFloat 15s ease-in-out infinite 3s'
-      }}
-    />
-    <div className="relative z-10 text-center px-6 -mt-20">
-      {/* Decorative element above title */}
-      <div className="flex items-center justify-center gap-2 mb-6">
-        <div 
-          className="h-0.5 w-12 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
-        <div 
-          className="w-2 h-2 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
-        <div 
-          className="h-0.5 w-12 rounded-full"
-          style={{ backgroundColor: accentGreen }}
-        />
-      </div>
-      <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white mb-6 leading-tight animate-fadeIn">
-        Make it stand out.
-        <br />
-        <span
+    >
+      {/* Warm twinkling stars */}
+      {STARS.map((s) => (
+        <div
+          key={s.key}
+          className="absolute rounded-full pointer-events-none"
           style={{
-            color: primaryBlue,
-            fontWeight: 900,
-            textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 1px 0 rgba(0,0,0,0.3)',
+            width: s.size,
+            height: s.size,
+            top: s.top,
+            left: s.left,
+            backgroundColor: '#f0e6d4',
+            animation: `twinkle ${s.dur} ease-in-out infinite ${s.delay}`,
+            zIndex: 1,
           }}
-        >
-          FrameIt
-        </span> <span className="text-white">now.</span>
-      </h1>
-      <p className="text-xl sm:text-2xl text-gray-200 mb-8 font-medium">
-        Create, customize, and be post-ready.
-      </p>
-      {/* Enhanced button with glow effect */}
-      <div className="relative inline-block">
-        <div 
-          className="absolute inset-0 rounded-full blur-xl opacity-50 pointer-events-none -z-10"
-          style={{ backgroundColor: '#FFB84D' }}
         />
-        <YellowButton size="lg" onClick={onGetStarted} className="text-black">
-          Get Started
-        </YellowButton>
+      ))}
+
+      {/* Warm ambient glows -- lantern pools */}
+      <div
+        className="absolute rounded-full opacity-[0.07] blur-[180px] pointer-events-none"
+        style={{
+          width: 800,
+          height: 800,
+          backgroundColor: '#D4952B',
+          top: '-20%',
+          left: '5%',
+          animation: 'heroFloat 24s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute rounded-full opacity-[0.05] blur-[160px] pointer-events-none"
+        style={{
+          width: 600,
+          height: 600,
+          backgroundColor: '#E87D3E',
+          bottom: '-5%',
+          right: '10%',
+          animation: 'heroFloat 28s ease-in-out infinite 4s',
+        }}
+      />
+      <div
+        className="absolute rounded-full opacity-[0.04] blur-[140px] pointer-events-none"
+        style={{
+          width: 500,
+          height: 500,
+          backgroundColor: '#FFB84D',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          animation: 'heroFloat 22s ease-in-out infinite 2s',
+        }}
+      />
+
+      {/* Mouse-follow glow -- warm */}
+      <div
+        className="absolute rounded-full opacity-[0.06] blur-[120px] pointer-events-none transition-all duration-[2500ms] ease-out"
+        style={{
+          width: 600,
+          height: 600,
+          background: `radial-gradient(circle, #D4952B, transparent 70%)`,
+          left: `${mousePos.x * 100}%`,
+          top: `${mousePos.y * 100}%`,
+          transform: 'translate(-50%, -50%)',
+        }}
+      />
+
+      {/* Fireflies */}
+      {FIREFLIES.map((f, i) => (
+        <div
+          key={`fly-${i}`}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: f.size,
+            height: f.size,
+            top: f.top,
+            left: f.left,
+            backgroundColor: f.color,
+            color: f.color,
+            animation: `fireflyDrift${f.drift} ${f.driftDur} ease-in-out infinite ${f.delay}, fireflyGlow ${f.glowDur} ease-in-out infinite ${f.delay}`,
+            zIndex: 15,
+          }}
+        />
+      ))}
+
+      {/* Polaroid photos */}
+      {HERO_PHOTOS.map((photo, i) => {
+        const parallaxX = (mousePos.x - 0.5) * (5 + i * 1.5);
+        const parallaxY = (mousePos.y - 0.5) * (5 + i * 1.5);
+        return (
+          <div
+            key={i}
+            className="absolute hidden md:block pointer-events-none select-none"
+            style={{
+              top: photo.top,
+              bottom: photo.bottom,
+              left: photo.left,
+              right: photo.right,
+              width: photo.w,
+              zIndex: photo.z,
+              transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
+              transition: 'transform 0.8s cubic-bezier(0.16,1,0.3,1)',
+              animation: `polaroidFloat ${18 + i * 2}s ease-in-out infinite ${i * 0.5}s`,
+            }}
+          >
+            <div
+              className="rounded-sm overflow-hidden"
+              style={{
+                background: '#f0e6d4',
+                padding: '10px 10px 44px 10px',
+                boxShadow: '0 10px 50px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)',
+              }}
+            >
+              <Image
+                src={photo.src}
+                alt=""
+                width={photo.w}
+                height={photo.h}
+                className="object-cover"
+                style={{
+                  width: photo.w - 20,
+                  height: photo.h - 54,
+                  display: 'block',
+                  filter: 'saturate(0.7) contrast(1.1) brightness(0.85) sepia(0.15)',
+                }}
+              />
+              <p
+                className="text-center mt-2 font-serif italic"
+                style={{ fontSize: 11, color: '#8a7560', letterSpacing: '0.02em' }}
+              >
+                {photo.caption}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Content */}
+      <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
+        <div
+          data-animate
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] mb-8"
+        >
+          <div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: '#FFB84D', animation: 'pulse 2s ease-in-out infinite' }}
+          />
+          <span className="text-xs font-medium tracking-wide uppercase" style={{ color: '#f0e6d4', opacity: 0.6 }}>
+            Frame your moments
+          </span>
+        </div>
+
+        <h1
+          data-animate
+          className="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-6 leading-[1.05] tracking-tight"
+          style={{ color: '#f0e6d4' }}
+        >
+          Make it{' '}
+          <span className="relative inline-block">
+            <span className="relative z-10 hero-text-glow" style={{ color: primaryBlue }}>
+              stand out.
+            </span>
+            <span
+              className="absolute bottom-1 left-0 right-0 h-3 opacity-20 rounded-full blur-sm"
+              style={{ backgroundColor: primaryBlue }}
+            />
+          </span>
+          <br />
+          <span style={{ color: 'rgba(240,230,212,0.9)' }}>
+            <span style={{ color: accentGreen }} className="font-black">
+              FrameIt
+            </span>{' '}
+            now.
+          </span>
+        </h1>
+
+        <p
+          data-animate
+          className="text-lg sm:text-xl mb-10 max-w-lg mx-auto leading-relaxed font-normal"
+          style={{ color: 'rgba(240,230,212,0.4)' }}
+        >
+          Create, customize, and share stunning photo frames. Be post-ready in seconds.
+        </p>
+
+        <div data-animate className="relative inline-block group">
+          <div
+            className="absolute -inset-1 rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500"
+            style={{ backgroundColor: '#FFB84D' }}
+          />
+          <YellowButton size="lg" onClick={onGetStarted} className="relative text-black font-bold tracking-wide">
+            Get Started
+          </YellowButton>
+        </div>
+
+        <div data-animate className="mt-20 flex flex-col items-center gap-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: 'rgba(240,230,212,0.2)' }}>
+            Scroll
+          </span>
+          <div className="w-px h-8 scroll-line" />
+        </div>
       </div>
-    </div>
-    <div 
-      className="absolute bottom-0 left-0 right-0 h-32"
-      style={{
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.5) 50%, #1a1a1a 100%)'
-      }}
-    />
-  </section>
-);
+
+      {/* Bottom fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, #0a0806 100%)',
+        }}
+      />
+    </section>
+  );
+};
 
 export default HeroSection;

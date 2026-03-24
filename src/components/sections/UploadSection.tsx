@@ -16,8 +16,8 @@ export default function UploadSection() {
     const { imageFile, setImageFile, loadFrame, setCaption } = useFrame();
     const { showSuccess, handleFileDrop } = useUploadHandler(setImageFile, setCaption);
     const router = useRouter();
-    const primaryBlue = '#1ED9C3'; // Arduino Day Teal
-    const accentGreen = '#FF8552'; // Arduino Day Orange
+    const primaryBlue = '#1ED9C3';
+    const accentGreen = '#FF8552';
     const displayName = useUserDisplayName();
     const [savedFrames, setSavedFrames] = useState<Record<string, SavedFrame>>({});
     const [deleting, setDeleting] = useState<string | null>(null);
