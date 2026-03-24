@@ -5,14 +5,14 @@ import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
 
 const HERO_PHOTOS = [
-  { src: '/hero/photo1.jpg', top: '4%', left: '3%', rotate: -12, size: 160, delay: 0 },
-  { src: '/hero/photo2.jpg', top: '8%', right: '4%', rotate: 8, size: 150, delay: 1.5 },
-  { src: '/hero/photo3.jpg', top: '52%', left: '2%', rotate: 6, size: 140, delay: 3 },
-  { src: '/hero/photo4.jpg', bottom: '8%', right: '5%', rotate: -9, size: 155, delay: 4.5 },
-  { src: '/hero/photo5.jpg', top: '5%', left: '35%', rotate: 5, size: 120, delay: 2 },
-  { src: '/hero/photo6.jpg', bottom: '12%', left: '18%', rotate: -7, size: 145, delay: 5 },
-  { src: '/hero/photo7.jpg', top: '38%', right: '3%', rotate: 11, size: 135, delay: 3.5 },
-  { src: '/hero/photo8.jpg', bottom: '5%', left: '42%', rotate: -4, size: 125, delay: 6 },
+  { src: '/hero/photo1.jpg', top: '2%',  left: '2%',  rotate: -14, w: 220, h: 260, caption: 'Friends forever', delay: 0 },
+  { src: '/hero/photo2.jpg', top: '5%',  right: '3%', rotate: 10,  w: 200, h: 240, caption: 'Say cheese!', delay: 1.5 },
+  { src: '/hero/photo3.jpg', top: '50%', left: '1%',  rotate: 7,   w: 200, h: 240, caption: 'Golden hour', delay: 3 },
+  { src: '/hero/photo4.jpg', bottom: '3%', right: '2%', rotate: -8, w: 230, h: 270, caption: 'Memories', delay: 4.5 },
+  { src: '/hero/photo5.jpg', top: '3%',  left: '32%', rotate: 5,   w: 180, h: 220, caption: 'Party time', delay: 2 },
+  { src: '/hero/photo6.jpg', bottom: '8%', left: '15%', rotate: -10, w: 210, h: 250, caption: 'City vibes', delay: 5 },
+  { src: '/hero/photo7.jpg', top: '35%', right: '1%', rotate: 12,  w: 190, h: 230, caption: 'Celebrate!', delay: 3.5 },
+  { src: '/hero/photo8.jpg', bottom: '2%', left: '38%', rotate: -5, w: 200, h: 240, caption: 'Snapshot', delay: 6 },
 ];
 
 interface HeroSectionProps {
@@ -22,7 +22,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  primaryBlue = '#0fa392',
+  primaryBlue = '#0d7d72',
   accentGreen = '#FF8552',
   onGetStarted,
 }) => {
@@ -67,18 +67,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
       style={{ background: '#0a0a0a' }}
     >
-      {/* Subtle grid pattern */}
+      {/* Dark corkboard / mood-board texture */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+        }}
+      />
+
+      {/* Subtle warm vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)',
         }}
       />
 
       {/* Radial mouse-follow glow */}
       <div
-        className="absolute w-[700px] h-[700px] rounded-full opacity-[0.06] blur-[100px] transition-transform duration-[2000ms] ease-out pointer-events-none"
+        className="absolute w-[700px] h-[700px] rounded-full opacity-[0.05] blur-[100px] transition-transform duration-[2000ms] ease-out pointer-events-none"
         style={{
           background: `radial-gradient(circle, ${primaryBlue}, transparent 70%)`,
           left: `${mousePos.x * 100}%`,
@@ -89,89 +97,88 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Ambient gradient orbs */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08] blur-[120px]"
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06] blur-[120px]"
         style={{
           backgroundColor: primaryBlue,
-          top: '-15%',
+          top: '-10%',
           left: '-5%',
           animation: 'heroFloat 18s ease-in-out infinite',
         }}
       />
       <div
-        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.07] blur-[120px]"
+        className="absolute w-[400px] h-[400px] rounded-full opacity-[0.05] blur-[120px]"
         style={{
           backgroundColor: accentGreen,
-          bottom: '-10%',
+          bottom: '-5%',
           right: '-5%',
           animation: 'heroFloat 22s ease-in-out infinite 4s',
         }}
       />
-      <div
-        className="absolute w-[350px] h-[350px] rounded-full opacity-[0.05] blur-[100px]"
-        style={{
-          backgroundColor: '#FFB84D',
-          top: '40%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          animation: 'heroFloat 15s ease-in-out infinite 2s',
-        }}
-      />
 
-      {/* Scattered floating photos */}
+      {/* Scattered polaroid photos */}
       {HERO_PHOTOS.map((photo, i) => {
-        const parallaxX = (mousePos.x - 0.5) * (8 + i * 2);
-        const parallaxY = (mousePos.y - 0.5) * (8 + i * 2);
+        const parallaxX = (mousePos.x - 0.5) * (6 + i * 2.5);
+        const parallaxY = (mousePos.y - 0.5) * (6 + i * 2.5);
         return (
           <div
             key={i}
-            className="absolute hidden md:block pointer-events-none"
+            className="absolute hidden md:block pointer-events-none select-none"
             style={{
               top: photo.top,
               left: photo.left,
               right: photo.right,
               bottom: photo.bottom,
-              width: photo.size,
+              width: photo.w,
               transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
               transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
               animation: `floatRotateSoft 20s ease-in-out infinite ${photo.delay}s`,
               zIndex: 1,
             }}
           >
+            {/* Polaroid frame */}
             <div
-              className="rounded-lg overflow-hidden shadow-2xl"
+              className="rounded-sm overflow-hidden"
               style={{
-                padding: 5,
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(2px)',
+                background: '#f5f0e8',
+                padding: '10px 10px 36px 10px',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)',
               }}
             >
               <Image
                 src={photo.src}
                 alt=""
-                width={photo.size}
-                height={photo.size}
-                className="rounded-md object-cover"
+                width={photo.w}
+                height={photo.h}
+                className="object-cover"
                 style={{
-                  width: photo.size - 10,
-                  height: photo.size - 10,
-                  opacity: 0.55,
-                  filter: 'saturate(0.8)',
+                  width: photo.w - 20,
+                  height: photo.h - 46,
+                  display: 'block',
+                  filter: 'saturate(0.85) contrast(1.05)',
                 }}
               />
+              {/* Caption area */}
+              <p
+                className="text-center mt-1.5 font-serif italic"
+                style={{
+                  fontSize: 11,
+                  color: '#8a7e6b',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {photo.caption}
+              </p>
             </div>
           </div>
         );
       })}
 
-      {/* Floating dots for texture */}
+      {/* Floating dots for depth */}
       {[
         { top: '15%', left: '25%', size: 4, delay: '0s', dur: '12s' },
         { top: '70%', left: '18%', size: 3, delay: '2s', dur: '14s' },
         { top: '30%', right: '20%', size: 5, delay: '4s', dur: '16s' },
         { top: '80%', right: '25%', size: 3, delay: '1s', dur: '11s' },
-        { top: '50%', left: '5%', size: 4, delay: '3s', dur: '13s' },
-        { top: '40%', right: '8%', size: 3, delay: '5s', dur: '15s' },
       ].map((dot, i) => (
         <div
           key={`dot-${i}`}
@@ -183,33 +190,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             left: dot.left,
             right: (dot as { right?: string }).right,
             backgroundColor: i % 3 === 0 ? primaryBlue : i % 3 === 1 ? accentGreen : '#FFB84D',
-            opacity: 0.3,
+            opacity: 0.25,
             animation: `floatDot ${dot.dur} ease-in-out infinite ${dot.delay}`,
           }}
         />
       ))}
-
-      {/* Horizontal light streaks */}
-      <div
-        className="absolute h-px opacity-[0.06]"
-        style={{
-          width: '40%',
-          top: '30%',
-          left: '-10%',
-          background: `linear-gradient(90deg, transparent, ${primaryBlue}, transparent)`,
-          animation: 'streakMove 8s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute h-px opacity-[0.04]"
-        style={{
-          width: '30%',
-          top: '70%',
-          right: '-10%',
-          background: `linear-gradient(90deg, transparent, ${accentGreen}, transparent)`,
-          animation: 'streakMove 10s ease-in-out infinite 3s',
-        }}
-      />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
