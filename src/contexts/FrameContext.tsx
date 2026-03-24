@@ -34,7 +34,7 @@ const defaultFrameData: FrameData = {
   imageUrl: null,
   scale: 100,
   rotate: 0,
-  frameColor: '#1ED9C3', // Default teal
+  frameColor: '#1ED9C3', // Arduino Day Teal
   caption: '',
   templateName: '',
   frameId: null,

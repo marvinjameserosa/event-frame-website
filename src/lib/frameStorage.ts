@@ -160,7 +160,7 @@ export const getFrame = async (frameId: string): Promise<SavedFrame | null> => {
 			scale: 100, // Default values since not in DB
 			rotate: 0,
 			caption: data.caption || '',
-			frameColor: '#1ED9C3', // Default teal
+			frameColor: '#1ED9C3', // Default color - Arduino Day Teal
 			createdAt: data.created_at,
 			userId: data.user_id,
 		};
