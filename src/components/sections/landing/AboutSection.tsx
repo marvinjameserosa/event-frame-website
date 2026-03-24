@@ -51,14 +51,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       ref={sectionRef}
       id="about-us"
       className="py-24 md:py-32 overflow-hidden scroll-mt-16 relative"
-      style={{ background: '#0a0a0a' }}
+      style={{ background: 'linear-gradient(180deg, #0b1a14 0%, #0f241a 50%, #0b1a14 100%)' }}
     >
       {/* Dotted grid pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)`,
-          backgroundSize: '28px 28px',
+          backgroundImage: `radial-gradient(circle, rgba(255,229,160,0.06) 1.5px, transparent 1.5px)`,
+          backgroundSize: '32px 32px',
           maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%)',
           WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%)',
         }}

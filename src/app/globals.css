@@ -122,317 +122,179 @@
   }
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Scroll-triggered reveal animations */
+/* ── Forest night color palette ──
+   Deep forest:  #0b1a14
+   Dark moss:    #0f241a
+   Teal accent:  #0d7d72
+   Orange warm:  #FF8552
+   Yellow glow:  #FFB84D
+   Cream:        #f5f0e8
+*/
+
+/* ── Keyframes ── */
+
 @keyframes revealUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes revealScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-20px); }
 }
 
 @keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px) translateX(0px);
-  }
-  50% {
-    transform: translateY(-30px) translateX(20px);
-  }
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50%      { transform: translateY(-30px) translateX(20px); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.1); }
 }
 
 @keyframes heroFloat {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(30px, -30px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -30px) scale(1.1); }
+  66%      { transform: translate(-20px, 20px) scale(0.9); }
 }
 
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(405deg);
-  }
+  from { transform: rotate(45deg); }
+  to   { transform: rotate(405deg); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes borderGlow {
-  0%, 100% {
-    border-color: rgba(30, 217, 195, 0.3);
-    box-shadow: 0 0 15px rgba(30, 217, 195, 0.1);
-  }
-  50% {
-    border-color: rgba(30, 217, 195, 0.6);
-    box-shadow: 0 0 25px rgba(30, 217, 195, 0.2);
-  }
+  0%, 100% { border-color: rgba(13,125,114,0.3); box-shadow: 0 0 15px rgba(13,125,114,0.1); }
+  50%      { border-color: rgba(13,125,114,0.6); box-shadow: 0 0 25px rgba(13,125,114,0.2); }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 1s ease-out;
+/* Polaroid gentle bob */
+@keyframes polaroidFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
 }
 
-.animate-revealUp {
-  animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Firefly drift -- organic wandering path */
+@keyframes fireflyDrift1 {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(18px, -30px); }
+  40%  { transform: translate(-12px, -55px); }
+  60%  { transform: translate(25px, -20px); }
+  80%  { transform: translate(-8px, -45px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fireflyDrift2 {
+  0%   { transform: translate(0, 0); }
+  15%  { transform: translate(-25px, -15px); }
+  35%  { transform: translate(10px, -50px); }
+  55%  { transform: translate(-30px, -35px); }
+  75%  { transform: translate(15px, -60px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fireflyDrift3 {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(20px, -45px); }
+  50%  { transform: translate(-15px, -20px); }
+  75%  { transform: translate(30px, -55px); }
+  100% { transform: translate(0, 0); }
 }
 
-.animate-revealScale {
-  animation: revealScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Firefly glow pulse -- warm lantern flicker */
+@keyframes fireflyGlow {
+  0%, 100% { opacity: 0.2; box-shadow: 0 0 6px 3px currentColor; }
+  15%      { opacity: 0.9; box-shadow: 0 0 18px 9px currentColor; }
+  30%      { opacity: 0.4; box-shadow: 0 0 8px 4px currentColor; }
+  50%      { opacity: 1;   box-shadow: 0 0 22px 11px currentColor; }
+  70%      { opacity: 0.3; box-shadow: 0 0 7px 3px currentColor; }
+  85%      { opacity: 0.8; box-shadow: 0 0 16px 8px currentColor; }
 }
 
-.animate-shimmer {
-  background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
+@keyframes floatRotate {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25%      { transform: translateY(-15px) rotate(5deg); }
+  50%      { transform: translateY(-25px) rotate(-3deg); }
+  75%      { transform: translateY(-10px) rotate(4deg); }
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientShift 6s ease infinite;
+@keyframes streakMove {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  30%  { opacity: 0.06; }
+  70%  { opacity: 0.06; }
+  100% { transform: translateX(200%); opacity: 0; }
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-.animate-borderGlow {
-  animation: borderGlow 3s ease-in-out infinite;
+/* Hero text glow -- forest teal */
+.hero-text-glow {
+  text-shadow: 0 0 50px rgba(13, 125, 114, 0.35), 0 0 100px rgba(13, 125, 114, 0.15);
 }
 
-/* Stagger delays for children */
+/* Scroll indicator */
+.scroll-line {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; height: 2rem; }
+  50%      { opacity: 0.6; height: 2.5rem; }
+}
+
+/* ── Utility classes ── */
+
+.animate-fadeIn       { animation: fadeIn 1s ease-out; }
+.animate-revealUp     { animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-revealScale  { animation: revealScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-shimmer      { background-size: 200% 100%; animation: shimmer 3s linear infinite; }
+.animate-gradient     { background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+.animate-marquee      { animation: marquee 30s linear infinite; }
+.animate-borderGlow   { animation: borderGlow 3s ease-in-out infinite; }
+
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
 
-/* Glass morphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Soft float for scattered photos */
-@keyframes floatRotateSoft {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-/* Float + rotate for geometric shapes */
-@keyframes floatRotate {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-15px) rotate(5deg);
-  }
-  50% {
-    transform: translateY(-25px) rotate(-3deg);
-  }
-  75% {
-    transform: translateY(-10px) rotate(4deg);
-  }
-}
-
-/* Floating dots with slight drift */
-@keyframes floatDot {
-  0%, 100% {
-    transform: translate(0, 0);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translate(8px, -18px);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-5px, -30px);
-    opacity: 0.2;
-  }
-  75% {
-    transform: translate(12px, -12px);
-    opacity: 0.4;
-  }
-}
-
-/* Firefly drift animation */
-@keyframes fireflyDrift {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-  }
-  30% {
-    transform: translate(30px, -40px);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate(-20px, -70px);
-    opacity: 0.9;
-  }
-  70% {
-    transform: translate(40px, -30px);
-    opacity: 0.3;
-  }
-  90% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(10px, -10px);
-    opacity: 0;
-  }
-}
-
-/* Firefly glow pulse */
-@keyframes fireflyGlow {
-  0%, 100% {
-    box-shadow: 0 0 4px 2px currentColor;
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 16px 8px currentColor;
-    transform: scale(1.3);
-  }
-}
-
-/* Horizontal streak movement */
-@keyframes streakMove {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  30% {
-    opacity: 0.06;
-  }
-  70% {
-    opacity: 0.06;
-  }
-  100% {
-    transform: translateX(200%);
-    opacity: 0;
-  }
-}
-
-/* Slow spin for rings */
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Hero text glow */
-.hero-text-glow {
-  text-shadow: 0 0 40px rgba(13, 125, 114, 0.25);
-}
-
-/* Scroll indicator line animation */
-.scroll-line {
-  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% {
-    opacity: 0.3;
-    height: 2rem;
-  }
-  50% {
-    opacity: 0.6;
-    height: 2.5rem;
-  }
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Noise texture overlay */

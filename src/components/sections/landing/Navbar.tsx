@@ -49,7 +49,7 @@ export default function Navbar() {
     <header
       className="w-full text-white sticky top-0 z-50 transition-all duration-500"
       style={{
-        backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.85)' : 'rgba(10, 10, 10, 0.4)',
+        backgroundColor: scrolled ? 'rgba(11, 26, 20, 0.9)' : 'rgba(11, 26, 20, 0.3)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',

@@ -18,7 +18,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0a] relative">
+    <div className="min-h-screen flex flex-col bg-[#0b1a14] relative">
       <AnimatedBackground />
       <Header />
       <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />

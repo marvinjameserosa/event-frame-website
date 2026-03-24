@@ -39,7 +39,7 @@ export default function AnimatedBackground() {
         this.vy = (Math.random() - 0.5) * 0.4;
         this.radius = Math.random() * 2 + 0.5;
         this.baseAlpha = Math.random() * 0.4 + 0.1;
-        const colors = ['30, 217, 195', '255, 133, 82', '255, 184, 77'];
+        const colors = ['13, 125, 114', '255, 184, 77', '255, 229, 160'];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
@@ -95,7 +95,7 @@ export default function AnimatedBackground() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(30, 217, 195, ${alpha})`;
+            ctx.strokeStyle = `rgba(13, 125, 114, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
