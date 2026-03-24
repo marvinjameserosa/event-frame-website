@@ -278,7 +278,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             style={{ backgroundColor: '#FFB84D', animation: 'pulse 2s ease-in-out infinite' }}
           />
           <span className="text-xs font-medium text-white/60 tracking-wide uppercase">
-            Born from a side project
+            Frame your moments
           </span>
         </div>
 
@@ -286,10 +286,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           data-animate
           className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight"
         >
-          No more{' '}
+          Make it{' '}
           <span className="relative inline-block">
             <span className="relative z-10 hero-text-glow" style={{ color: primaryBlue }}>
-              watermarks.
+              stand out.
             </span>
             <span
               className="absolute bottom-1 left-0 right-0 h-3 opacity-20 rounded-full blur-sm"
@@ -298,10 +298,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </span>
           <br />
           <span className="text-white/90">
-            Just{' '}
             <span style={{ color: accentGreen }} className="font-black">
-              FrameIt.
-            </span>
+              FrameIt
+            </span>{' '}
+            now.
           </span>
         </h1>
 
@@ -309,7 +309,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           data-animate
           className="text-lg sm:text-xl text-white/45 mb-10 max-w-lg mx-auto leading-relaxed font-normal"
         >
-          What started as a fun hack to ditch DP Blast watermarks is now free for everyone. Frame your photos, your way.
+          Create, customize, and share stunning photo frames. Be post-ready in seconds.
         </p>
 
         <div data-animate className="relative inline-block group">
