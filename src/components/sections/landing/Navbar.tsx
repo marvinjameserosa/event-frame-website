@@ -32,14 +32,14 @@ export default function Navbar() {
 
   return (
     <header
-      className="w-full text-white sticky top-0 z-50"
+      className="w-full text-white fixed top-0 left-0 right-0 z-50"
       style={{
-        backgroundColor: scrolled ? 'rgba(8, 14, 26, 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(24px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 4px 40px rgba(0,0,0,0.4)' : 'none',
-        transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+        backgroundColor: scrolled ? 'rgba(8, 14, 26, 0.8)' : 'rgba(0, 0, 0, 0)',
+        backdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
+        transition: 'background-color 0.6s ease, backdrop-filter 0.6s ease, border-bottom 0.6s ease, box-shadow 0.6s ease, opacity 0.5s ease, transform 0.5s ease',
         opacity: mounted ? 1 : 0,
         transform: mounted ? 'translateY(0)' : 'translateY(-10px)',
       }}
@@ -59,7 +59,7 @@ export default function Navbar() {
             />
             <div
               className="absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-              style={{ backgroundColor: '#0d7d72' }}
+              style={{ backgroundColor: '#FFB84D' }}
             />
           </div>
           <span className="tracking-tight">FrameIt</span>

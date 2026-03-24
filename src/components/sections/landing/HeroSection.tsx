@@ -4,10 +4,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
 
-/* ── Polaroid layout: curated gallery wall ──
-   Left column:  stacked cascade, slight inward tilt
-   Right column: mirrored cascade, slight inward tilt
-   Creates a "parting curtain" that frames the centre content
+/* ── Polaroid layout: curved fan arrangement ──
+   Photos sweep in a gentle arc from the sides, fanning outward.
+   Left fan:  3 photos curving from top-left toward bottom,
+   Right fan: 3 photos mirrored,
+   Plus 2 peeking in from the very bottom for depth.
 */
 const HERO_PHOTOS: {
   src: string;
@@ -21,17 +22,19 @@ const HERO_PHOTOS: {
   right?: string;
   z: number;
 }[] = [
-  // -- Left cascade (tilted inward toward centre) --
-  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 220, h: 270, rotate: -8,   top: '2%',  left: '1%',  z: 4 },
-  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 200, h: 250, rotate: -4,   top: '28%', left: '4%',  z: 3 },
-  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 190, h: 240, rotate: -10,  top: '56%', left: '1%',  z: 2 },
-  { src: '/hero/photo4.jpg', caption: 'Memories',        w: 180, h: 230, rotate: -3,   top: '80%', left: '5%',  z: 1 },
+  // -- Left fan arc (sweeping from top-left downward) --
+  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 230, h: 280, rotate: -18,  top: '4%',  left: '-2%', z: 5 },
+  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 210, h: 260, rotate: -10,  top: '32%', left: '3%',  z: 4 },
+  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 200, h: 250, rotate: -4,   top: '60%', left: '1%',  z: 3 },
 
-  // -- Right cascade (mirrored) --
-  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 220, h: 270, rotate: 8,    top: '2%',  right: '1%', z: 4 },
-  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 200, h: 250, rotate: 4,    top: '28%', right: '4%', z: 3 },
-  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 190, h: 240, rotate: 10,   top: '56%', right: '1%', z: 2 },
-  { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 180, h: 230, rotate: 3,    top: '80%', right: '5%', z: 1 },
+  // -- Right fan arc (mirrored sweep) --
+  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 230, h: 280, rotate: 18,   top: '4%',  right: '-2%', z: 5 },
+  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 210, h: 260, rotate: 10,   top: '32%', right: '3%',  z: 4 },
+  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 200, h: 250, rotate: 4,    top: '60%', right: '1%',  z: 3 },
+
+  // -- Bottom peeking photos --
+  { src: '/hero/photo4.jpg', caption: 'Memories',        w: 190, h: 240, rotate: -7,   bottom: '-6%', left: '18%', z: 2 },
+  { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 190, h: 240, rotate: 7,    bottom: '-6%', right: '18%', z: 2 },
 ];
 
 /* ── Fireflies: warm golden lanterns in a night sky ── */
