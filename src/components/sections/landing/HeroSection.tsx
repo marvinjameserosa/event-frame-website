@@ -1,7 +1,41 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
+
+/* ── Polaroid layout: curved fan arrangement ──
+   Photos sweep in a gentle arc from the sides, fanning outward.
+   Left fan:  3 photos curving from top-left toward bottom,
+   Right fan: 3 photos mirrored,
+   Plus 2 peeking in from the very bottom for depth.
+*/
+const HERO_PHOTOS: {
+  src: string;
+  caption: string;
+  w: number;
+  h: number;
+  rotate: number;
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+  z: number;
+}[] = [
+  // -- Left fan arc (sweeping from top-left downward) --
+  { src: '/hero/photo1.jpg', caption: 'Friends forever', w: 230, h: 280, rotate: -18,  top: '4%',  left: '-2%', z: 5 },
+  { src: '/hero/photo3.jpg', caption: 'Golden hour',     w: 210, h: 260, rotate: -10,  top: '32%', left: '3%',  z: 4 },
+  { src: '/hero/photo6.jpg', caption: 'City vibes',      w: 200, h: 250, rotate: -4,   top: '60%', left: '1%',  z: 3 },
+
+  // -- Right fan arc (mirrored sweep) --
+  { src: '/hero/photo2.jpg', caption: 'Say cheese!',     w: 230, h: 280, rotate: 18,   top: '4%',  right: '-2%', z: 5 },
+  { src: '/hero/photo5.jpg', caption: 'Party time',      w: 210, h: 260, rotate: 10,   top: '32%', right: '3%',  z: 4 },
+  { src: '/hero/photo7.jpg', caption: 'Celebrate!',      w: 200, h: 250, rotate: 4,    top: '60%', right: '1%',  z: 3 },
+
+  // -- Bottom peeking photos --
+  { src: '/hero/photo4.jpg', caption: 'Memories',        w: 190, h: 240, rotate: -7,   bottom: '-6%', left: '18%', z: 2 },
+  { src: '/hero/photo8.jpg', caption: 'Snapshot',        w: 190, h: 240, rotate: 7,    bottom: '-6%', right: '18%', z: 2 },
+];
 
 /* ── Fireflies: warm golden lanterns in a night sky ── */
 const FIREFLIES: {
@@ -156,7 +190,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         style={{
           width: 600,
           height: 600,
-          background: 'radial-gradient(circle, #1a3a6e, transparent 70%)',
+          background: `radial-gradient(circle, #1a3a6e, transparent 70%)`,
           left: `${mousePos.x * 100}%`,
           top: `${mousePos.y * 100}%`,
           transform: 'translate(-50%, -50%)',
@@ -180,6 +214,58 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           }}
         />
       ))}
+
+      {/* ── Polaroid photos -- left & right cascades ── */}
+      {HERO_PHOTOS.map((photo, i) => {
+        const parallaxX = (mousePos.x - 0.5) * (5 + i * 1.5);
+        const parallaxY = (mousePos.y - 0.5) * (5 + i * 1.5);
+        return (
+          <div
+            key={i}
+            className="absolute hidden md:block pointer-events-none select-none"
+            style={{
+              top: photo.top,
+              bottom: photo.bottom,
+              left: photo.left,
+              right: photo.right,
+              width: photo.w,
+              zIndex: photo.z,
+              transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
+              transition: 'transform 0.8s cubic-bezier(0.16,1,0.3,1)',
+              animation: `polaroidFloat ${18 + i * 2}s ease-in-out infinite ${i * 0.5}s`,
+            }}
+          >
+            <div
+              className="rounded-sm overflow-hidden"
+              style={{
+                background: '#f5f0e8',
+                padding: '10px 10px 44px 10px',
+                boxShadow: '0 10px 50px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5)',
+              }}
+            >
+              <Image
+                src={photo.src}
+                alt=""
+                width={photo.w}
+                height={photo.h}
+                className="object-cover"
+                style={{
+                  width: photo.w - 20,
+                  height: photo.h - 54,
+                  display: 'block',
+                  filter: 'saturate(0.75) contrast(1.05) brightness(0.92)',
+                }}
+              />
+              <p
+                className="text-center mt-2 font-serif italic"
+                style={{ fontSize: 11, color: '#8a7e6b', letterSpacing: '0.02em' }}
+              >
+                {photo.caption}
+              </p>
+            </div>
+          </div>
+        );
+      })}
 
       {/* ── Content ── */}
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">

@@ -7,7 +7,6 @@ import AboutSection from '@/components/sections/landing/AboutSection';
 import FeaturesSection from '@/components/sections/landing/FeaturesSection';
 import HeroSection from '@/components/sections/landing/HeroSection';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
-import PhotoStream from '@/components/ui/PhotoStream';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -21,7 +20,6 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#080e1a] relative">
       <AnimatedBackground />
-      <PhotoStream />
       <Header />
       <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />
       <AboutSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
