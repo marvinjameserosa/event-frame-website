@@ -53,10 +53,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
         <div
-          className="text-xl font-semibold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-foreground flex items-center gap-2"
+          className="text-xl font-semibold tracking-tight cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
           onClick={handleHomeClick}
         >
-          <span className="text-2xl font-bold">FrameIt</span>
+          <span className="text-2xl font-bold" style={{ color: '#1ED9C3' }}>FrameIt</span>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -82,7 +82,8 @@ export default function Navbar() {
 
         <button
           onClick={() => router.push('/login')}
-          className="flex items-center gap-2 px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-105"
+          style={{ backgroundColor: '#1ED9C3', color: '#0a0a0a' }}
         >
           Get Started
           <ArrowRight className="w-4 h-4" />

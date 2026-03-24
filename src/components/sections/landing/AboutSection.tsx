@@ -15,27 +15,30 @@ const AboutSection = () => (
               src="/duck.png"
               alt="FrameIt Preview"
               fill
-              className="object-cover"
+              className="object-cover animate-bounce-slow"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />
           </div>
-
-          {/* Decorative elements */}
-          <div className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl bg-foreground/5 border border-border backdrop-blur-sm" />
-          <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-xl bg-foreground/5 border border-border backdrop-blur-sm" />
         </div>
 
         {/* Content */}
         <div className="lg:w-1/2 text-center lg:text-left">
-          <span className="inline-block text-sm font-medium text-muted-foreground tracking-wider uppercase mb-4">
+          <span
+            className="inline-block text-sm font-medium tracking-wider uppercase mb-4"
+            style={{ color: '#FF8552' }}
+          >
             About FrameIt
           </span>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6 text-balance">
-            Turn moments into
-            <br />
-            <span className="text-muted-foreground">masterpieces</span>
+            Turn moments into{' '}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FFB84D)' }}
+            >
+              masterpieces
+            </span>
           </h2>
 
           <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
@@ -45,16 +48,16 @@ const AboutSection = () => (
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(30,217,195,0.15)' }}>
+                <svg className="w-5 h-5" style={{ color: '#1ED9C3' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <span className="text-muted-foreground">Easy to use</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(255,133,82,0.15)' }}>
+                <svg className="w-5 h-5" style={{ color: '#FF8552' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
