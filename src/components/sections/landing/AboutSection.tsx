@@ -12,7 +12,7 @@ const AboutSection = () => (
       <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
         {/* Bouncing Image */}
         <div className="relative w-full max-w-md lg:w-1/2 animate-slideInLeft" style={{ animationDelay: '0.1s' }}>
-          <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 animate-bounce-slow">
+          <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-primary/20 animate-bounce-slow">
             <Image
               src="/duck.png"
               alt="FrameIt Preview"
@@ -35,7 +35,7 @@ const AboutSection = () => (
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: 'linear-gradient(135deg, #e85d75, #ff9a8b)',
+                backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FFB84D)',
               }}
             >
               masterpieces
@@ -49,7 +49,7 @@ const AboutSection = () => (
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center">
                 <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -57,8 +57,8 @@ const AboutSection = () => (
               <span className="text-foreground font-medium">Easy to use</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 rounded-full bg-accent/15 flex items-center justify-center">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>

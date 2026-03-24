@@ -9,34 +9,34 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
   <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
-    {/* Colorful gradient blobs */}
+    {/* Teal / Orange / Yellow gradient blobs */}
     <div className="absolute inset-0 overflow-hidden">
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[120px] animate-gradient"
+        className="absolute w-[500px] h-[500px] rounded-full blur-[120px] animate-pulse-glow"
         style={{
-          background: 'linear-gradient(135deg, #e85d75 0%, #ff9a8b 50%, #ffd89b 100%)',
+          background: 'radial-gradient(circle, #1ED9C3 0%, transparent 70%)',
           top: '-15%',
           right: '-8%',
           opacity: 0.35,
         }}
       />
       <div
-        className="absolute w-[400px] h-[400px] rounded-full blur-[100px] animate-gradient"
+        className="absolute w-[400px] h-[400px] rounded-full blur-[100px] animate-pulse-glow"
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'radial-gradient(circle, #FF8552 0%, transparent 70%)',
           bottom: '-10%',
           left: '-5%',
-          opacity: 0.25,
+          opacity: 0.3,
           animationDelay: '2s',
         }}
       />
       <div
-        className="absolute w-[300px] h-[300px] rounded-full blur-[80px] animate-gradient"
+        className="absolute w-[300px] h-[300px] rounded-full blur-[80px] animate-pulse-glow"
         style={{
-          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+          background: 'radial-gradient(circle, #FFB84D 0%, transparent 70%)',
           top: '40%',
           left: '50%',
-          opacity: 0.15,
+          opacity: 0.2,
           animationDelay: '4s',
         }}
       />
@@ -56,7 +56,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
         <span
           className="bg-clip-text text-transparent animate-gradient"
           style={{
-            backgroundImage: 'linear-gradient(135deg, #e85d75, #ff9a8b, #667eea, #e85d75)',
+            backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FFB84D, #FF8552, #1ED9C3)',
             backgroundSize: '200% 200%',
           }}
         >
@@ -76,7 +76,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fadeIn" style={{ animationDelay: '0.4s' }}>
         <button
           onClick={onGetStarted}
-          className="flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+          className="flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 cursor-pointer"
         >
           Get Started
           <ArrowRight className="w-5 h-5" />
@@ -88,7 +88,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
               featuresSection.scrollIntoView({ behavior: 'smooth' });
             }
           }}
-          className="px-8 py-4 text-muted-foreground text-base font-medium hover:text-foreground transition-colors"
+          className="px-8 py-4 text-muted-foreground text-base font-medium hover:text-foreground transition-colors cursor-pointer"
         >
           Learn more
         </button>
@@ -97,15 +97,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
       {/* Stats */}
       <div className="mt-20 grid grid-cols-3 gap-8 max-w-xl mx-auto animate-fadeIn" style={{ animationDelay: '0.6s' }}>
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-foreground">10k+</div>
+          <div className="text-2xl sm:text-3xl font-bold text-primary">10k+</div>
           <div className="text-sm text-muted-foreground mt-1">Frames Created</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-foreground">50+</div>
+          <div className="text-2xl sm:text-3xl font-bold text-accent">50+</div>
           <div className="text-sm text-muted-foreground mt-1">Templates</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-foreground">Free</div>
+          <div className="text-2xl sm:text-3xl font-bold" style={{ color: '#FFB84D' }}>Free</div>
           <div className="text-sm text-muted-foreground mt-1">To Use</div>
         </div>
       </div>
