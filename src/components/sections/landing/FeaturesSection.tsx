@@ -9,24 +9,24 @@ const features = [
     title: 'Design Your Posts',
     description:
       'Pick from a collection of stylish, ready-made frames to enhance your photos. Your photos get a polished look instantly.',
-    color: '#1ED9C3',
-    bgColor: 'rgba(30, 217, 195, 0.12)',
+    color: '#e85d75',
+    bgColor: 'rgba(232, 93, 117, 0.1)',
   },
   {
     icon: Zap,
     title: 'Effortless Creation',
     description:
       "Just select a frame, write a caption, upload your picture, and you're done. It's that simple.",
-    color: '#FFB84D',
-    bgColor: 'rgba(255, 184, 77, 0.12)',
+    color: '#667eea',
+    bgColor: 'rgba(102, 126, 234, 0.1)',
   },
   {
     icon: Share2,
     title: 'Share Your Work',
     description:
       'Share your framed photos with friends, family, or online. Make sharing your memories quick, fun, and eye-catching.',
-    color: '#FF8552',
-    bgColor: 'rgba(255, 133, 82, 0.12)',
+    color: '#f5576c',
+    bgColor: 'rgba(245, 87, 108, 0.1)',
   },
 ];
 
@@ -46,7 +46,7 @@ const FeaturesSection = () => (
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FF8552)',
+              backgroundImage: 'linear-gradient(135deg, #e85d75, #ff9a8b)',
             }}
           >
             FrameIt

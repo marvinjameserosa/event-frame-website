@@ -59,7 +59,7 @@ export default function Navbar() {
           <span
             className="text-2xl font-bold bg-clip-text text-transparent"
             style={{
-              backgroundImage: 'linear-gradient(135deg, #1ED9C3, #FFB84D)',
+              backgroundImage: 'linear-gradient(135deg, #e85d75, #ff9a8b)',
             }}
           >
             FrameIt
@@ -69,19 +69,19 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           <button
             onClick={handleAboutClick}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             About
           </button>
           <button
             onClick={handleFeaturesClick}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Features
           </button>
           <button
             onClick={handleHomeClick}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Home
           </button>
@@ -89,7 +89,7 @@ export default function Navbar() {
 
         <button
           onClick={() => router.push('/login')}
-          className="flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
         >
           Get Started
           <ArrowRight className="w-4 h-4" />
