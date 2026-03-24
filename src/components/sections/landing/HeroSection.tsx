@@ -1,7 +1,19 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
+
+const HERO_PHOTOS = [
+  { src: '/hero/photo1.jpg', top: '4%', left: '3%', rotate: -12, size: 160, delay: 0 },
+  { src: '/hero/photo2.jpg', top: '8%', right: '4%', rotate: 8, size: 150, delay: 1.5 },
+  { src: '/hero/photo3.jpg', top: '52%', left: '2%', rotate: 6, size: 140, delay: 3 },
+  { src: '/hero/photo4.jpg', bottom: '8%', right: '5%', rotate: -9, size: 155, delay: 4.5 },
+  { src: '/hero/photo5.jpg', top: '5%', left: '35%', rotate: 5, size: 120, delay: 2 },
+  { src: '/hero/photo6.jpg', bottom: '12%', left: '18%', rotate: -7, size: 145, delay: 5 },
+  { src: '/hero/photo7.jpg', top: '38%', right: '3%', rotate: 11, size: 135, delay: 3.5 },
+  { src: '/hero/photo8.jpg', bottom: '5%', left: '42%', rotate: -4, size: 125, delay: 6 },
+];
 
 interface HeroSectionProps {
   primaryBlue?: string;
@@ -10,12 +22,12 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  primaryBlue = '#1ED9C3',
+  primaryBlue = '#0fa392',
   accentGreen = '#FF8552',
   onGetStarted,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -55,7 +67,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
       style={{ background: '#0a0a0a' }}
     >
-      {/* Grid pattern */}
+      {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
@@ -75,7 +87,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Animated gradient orbs */}
+      {/* Ambient gradient orbs */}
       <div
         className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08] blur-[120px]"
         style={{
@@ -105,167 +117,54 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Floating geometric shapes -- solid colors */}
-      {/* Dark teal - large rounded square, top-left */}
-      <div
-        className="absolute rounded-3xl"
-        style={{
-          width: 200,
-          height: 200,
-          top: '8%',
-          left: '6%',
-          background: '#0E8276',
-          opacity: 0.15,
-          boxShadow: '0 0 80px rgba(14, 130, 118, 0.3)',
-          animation: 'floatRotate 20s ease-in-out infinite',
-        }}
-      />
-      {/* Orange - large circle, left */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 170,
-          height: 170,
-          top: '55%',
-          left: '3%',
-          background: '#FF8552',
-          opacity: 0.14,
-          boxShadow: '0 0 70px rgba(255, 133, 82, 0.25)',
-          animation: 'floatRotate 25s ease-in-out infinite reverse',
-        }}
-      />
-      {/* Yellow - large rounded square, top-right */}
-      <div
-        className="absolute rounded-2xl"
-        style={{
-          width: 220,
-          height: 220,
-          top: '10%',
-          right: '4%',
-          background: '#FFB84D',
-          opacity: 0.13,
-          boxShadow: '0 0 80px rgba(255, 184, 77, 0.25)',
-          animation: 'floatRotate 18s ease-in-out infinite 3s',
-        }}
-      />
-      {/* Dark teal - diamond, bottom-right */}
-      <div
-        className="absolute"
-        style={{
-          width: 150,
-          height: 150,
-          bottom: '14%',
-          right: '8%',
-          background: '#0E8276',
-          opacity: 0.14,
-          boxShadow: '0 0 60px rgba(14, 130, 118, 0.25)',
-          borderRadius: 10,
-          animation: 'floatRotate 22s ease-in-out infinite 6s',
-          transform: 'rotate(45deg)',
-        }}
-      />
-      {/* Orange - medium circle, right */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 130,
-          height: 130,
-          top: '38%',
-          right: '14%',
-          background: '#FF8552',
-          opacity: 0.12,
-          boxShadow: '0 0 50px rgba(255, 133, 82, 0.2)',
-          animation: 'floatRotate 28s ease-in-out infinite 2s',
-        }}
-      />
-      {/* Yellow - large rounded rect, bottom-left */}
-      <div
-        className="absolute rounded-3xl"
-        style={{
-          width: 180,
-          height: 180,
-          bottom: '6%',
-          left: '18%',
-          background: '#FFB84D',
-          opacity: 0.12,
-          boxShadow: '0 0 60px rgba(255, 184, 77, 0.2)',
-          animation: 'floatRotate 24s ease-in-out infinite 4s',
-        }}
-      />
-      {/* Dark teal - small circle, center-left */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 90,
-          height: 90,
-          top: '35%',
-          left: '15%',
-          background: '#0E8276',
-          opacity: 0.13,
-          boxShadow: '0 0 40px rgba(14, 130, 118, 0.2)',
-          animation: 'floatRotate 16s ease-in-out infinite 1s',
-        }}
-      />
-      {/* Orange - small square, top-center */}
-      <div
-        className="absolute rounded-xl"
-        style={{
-          width: 100,
-          height: 100,
-          top: '6%',
-          left: '40%',
-          background: '#FF8552',
-          opacity: 0.11,
-          boxShadow: '0 0 40px rgba(255, 133, 82, 0.18)',
-          animation: 'floatRotate 19s ease-in-out infinite 5s',
-        }}
-      />
-      {/* Yellow - small circle, bottom-center-right */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 80,
-          height: 80,
-          bottom: '20%',
-          right: '30%',
-          background: '#FFB84D',
-          opacity: 0.12,
-          boxShadow: '0 0 35px rgba(255, 184, 77, 0.18)',
-          animation: 'floatRotate 21s ease-in-out infinite 7s',
-        }}
-      />
-      {/* Dark teal - large circle, far right edge */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 160,
-          height: 160,
-          top: '18%',
-          right: '-3%',
-          background: '#0E8276',
-          opacity: 0.12,
-          boxShadow: '0 0 60px rgba(14, 130, 118, 0.2)',
-          animation: 'floatRotate 26s ease-in-out infinite 3s',
-        }}
-      />
-      {/* Orange - diamond, bottom-left edge */}
-      <div
-        className="absolute"
-        style={{
-          width: 110,
-          height: 110,
-          bottom: '8%',
-          left: '4%',
-          background: '#FF8552',
-          opacity: 0.12,
-          boxShadow: '0 0 45px rgba(255, 133, 82, 0.18)',
-          borderRadius: 8,
-          animation: 'floatRotate 23s ease-in-out infinite 8s',
-          transform: 'rotate(45deg)',
-        }}
-      />
+      {/* Scattered floating photos */}
+      {HERO_PHOTOS.map((photo, i) => {
+        const parallaxX = (mousePos.x - 0.5) * (8 + i * 2);
+        const parallaxY = (mousePos.y - 0.5) * (8 + i * 2);
+        return (
+          <div
+            key={i}
+            className="absolute hidden md:block pointer-events-none"
+            style={{
+              top: photo.top,
+              left: photo.left,
+              right: photo.right,
+              bottom: photo.bottom,
+              width: photo.size,
+              transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
+              transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+              animation: `floatRotateSoft 20s ease-in-out infinite ${photo.delay}s`,
+              zIndex: 1,
+            }}
+          >
+            <div
+              className="rounded-lg overflow-hidden shadow-2xl"
+              style={{
+                padding: 5,
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(2px)',
+              }}
+            >
+              <Image
+                src={photo.src}
+                alt=""
+                width={photo.size}
+                height={photo.size}
+                className="rounded-md object-cover"
+                style={{
+                  width: photo.size - 10,
+                  height: photo.size - 10,
+                  opacity: 0.55,
+                  filter: 'saturate(0.8)',
+                }}
+              />
+            </div>
+          </div>
+        );
+      })}
 
-      {/* Floating teal dots */}
+      {/* Floating dots for texture */}
       {[
         { top: '15%', left: '25%', size: 4, delay: '0s', dur: '12s' },
         { top: '70%', left: '18%', size: 3, delay: '2s', dur: '14s' },
@@ -275,7 +174,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         { top: '40%', right: '8%', size: 3, delay: '5s', dur: '15s' },
       ].map((dot, i) => (
         <div
-          key={i}
+          key={`dot-${i}`}
           className="absolute rounded-full"
           style={{
             width: dot.size,
@@ -283,7 +182,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             top: dot.top,
             left: dot.left,
             right: (dot as { right?: string }).right,
-            backgroundColor: i % 2 === 0 ? primaryBlue : accentGreen,
+            backgroundColor: i % 3 === 0 ? primaryBlue : i % 3 === 1 ? accentGreen : '#FFB84D',
             opacity: 0.3,
             animation: `floatDot ${dot.dur} ease-in-out infinite ${dot.delay}`,
           }}

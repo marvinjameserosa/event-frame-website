@@ -296,6 +296,16 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Soft float for scattered photos */
+@keyframes floatRotateSoft {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
 /* Float + rotate for geometric shapes */
 @keyframes floatRotate {
   0%, 100% {
@@ -362,7 +372,7 @@ html {
 
 /* Hero text glow */
 .hero-text-glow {
-  text-shadow: 0 0 40px rgba(30, 217, 195, 0.15);
+  text-shadow: 0 0 40px rgba(15, 163, 146, 0.2);
 }
 
 /* Scroll indicator line animation */
