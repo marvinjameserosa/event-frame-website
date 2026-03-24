@@ -15,6 +15,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,6 +32,18 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       observer.observe(sectionRef.current);
     }
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const progress = -rect.top / rect.height;
+        setScrollY(progress);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const features = [
@@ -67,10 +80,56 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       {/* Subtle divider line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-      {/* Background glow */}
+      {/* Background glows with parallax */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.03] blur-[150px]"
-        style={{ backgroundColor: primaryBlue }}
+        className="absolute w-[800px] h-[800px] rounded-full opacity-[0.04] blur-[150px] pointer-events-none"
+        style={{
+          backgroundColor: primaryBlue,
+          left: '50%',
+          top: '50%',
+          transform: `translate(-50%, calc(-50% + ${scrollY * 60}px))`,
+          transition: 'transform 0.3s ease-out',
+        }}
+      />
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.03] blur-[120px] pointer-events-none"
+        style={{
+          backgroundColor: accentGreen,
+          left: '10%',
+          top: '20%',
+          transform: `translate(0, ${scrollY * -40}px)`,
+          transition: 'transform 0.3s ease-out',
+        }}
+      />
+
+      {/* Floating shapes */}
+      <div
+        className="absolute w-28 h-28 border border-white/[0.03] rounded-3xl pointer-events-none"
+        style={{
+          bottom: '10%',
+          left: '5%',
+          animation: 'floatRotate 22s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute w-14 h-14 border border-white/[0.02] rounded-full pointer-events-none"
+        style={{
+          top: '15%',
+          right: '8%',
+          animation: 'floatRotate 18s ease-in-out infinite reverse',
+        }}
+      />
+
+      {/* Animated horizontal line accents */}
+      <div
+        className="absolute h-px opacity-[0.04] pointer-events-none"
+        style={{
+          width: '25%',
+          top: '20%',
+          right: '-5%',
+          background: `linear-gradient(90deg, transparent, ${primaryBlue}, transparent)`,
+          animation: 'streakMove 12s ease-in-out infinite',
+        }}
       />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -83,7 +142,9 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
           }}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">Features</span>
+            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">
+              Features
+            </span>
           </div>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">

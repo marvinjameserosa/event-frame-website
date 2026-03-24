@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react";
+
 interface YellowButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
@@ -19,6 +21,8 @@ export default function YellowButton({
   fullRounded = true,
   disabled = false
 }: YellowButtonProps) {
+  const [isPressed, setIsPressed] = useState(false);
+
   const sizeClasses = {
     sm: "px-5 py-2 text-sm",
     md: "px-7 py-2.5 text-base",
@@ -31,11 +35,21 @@ export default function YellowButton({
     <button
       type={type}
       onClick={onClick}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onMouseLeave={() => setIsPressed(false)}
       className={
         `${sizeClasses[size]} ${roundedClass} font-semibold bg-[#FFB84D] text-gray-900 ` +
-        `${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#ffc266] hover:shadow-[0_0_30px_rgba(255,184,77,0.3)] active:scale-[0.97] cursor-pointer'} ` +
-        `transition-all duration-300 shadow-lg ${className}`
+        `${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#ffc266] active:scale-[0.97] cursor-pointer'} ` +
+        `transition-all duration-300 ${className}`
       }
+      style={{
+        boxShadow: isPressed
+          ? '0 2px 10px rgba(255,184,77,0.2)'
+          : disabled
+            ? 'none'
+            : '0 4px 20px rgba(255,184,77,0.25), 0 0 40px rgba(255,184,77,0.1)',
+      }}
       disabled={disabled}
     >
       {children}

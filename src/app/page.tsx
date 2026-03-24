@@ -6,6 +6,7 @@ import LandingFooter from '@/components/sections/landing/LandingFooter';
 import AboutSection from '@/components/sections/landing/AboutSection';
 import FeaturesSection from '@/components/sections/landing/FeaturesSection';
 import HeroSection from '@/components/sections/landing/HeroSection';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -17,7 +18,8 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col bg-[#0a0a0a] relative">
+      <AnimatedBackground />
       <Header />
       <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />
       <AboutSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
