@@ -65,23 +65,23 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
 
   const features = [
     {
-      title: 'Design Your Posts',
+      title: 'No Watermarks',
       description:
-        'Pick from a collection of stylish, ready-made frames to enhance your photos. Your pictures get a polished look instantly.',
+        'The whole reason FrameIt exists. Upload your photo, pick a frame, and download it clean -- no branding, no catches, no strings attached.',
       icon: Wand2,
       color: primaryBlue,
     },
     {
-      title: 'Effortless',
+      title: 'Dead Simple',
       description:
-        'FrameIt makes it super easy to turn any photo into something unique. Select a frame, write a caption, upload, and done.',
+        'No sign-ups, no complicated editors. Just pick a frame, upload your photo, and you are done. It was built to be fast and frictionless from day one.',
       icon: Zap,
       color: accentGreen,
     },
     {
-      title: 'Share Your Work',
+      title: 'Open for Everyone',
       description:
-        'Show your framed photos with friends, family, or online. The ready-made frames make sharing your memories quick and fun.',
+        'What started for Arduino Day PH and ICpEP events is now free for anyone. Use it for your org, your event, or just for fun.',
       icon: Share2,
       color: primaryBlue,
     },
@@ -170,10 +170,10 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
           </div>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Why{' '}
-            <span style={{ color: primaryBlue }}>FrameIt</span> is your
+            Why we{' '}
+            <span style={{ color: primaryBlue }}>built</span> this
             <br />
-            picture <span style={{ color: accentGreen }}>essential</span>.
+            and why it{"'"}s <span style={{ color: accentGreen }}>free</span>.
           </h2>
         </div>
 

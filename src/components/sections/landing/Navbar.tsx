@@ -68,7 +68,7 @@ export default function Navbar() {
         <nav className="flex items-center gap-1">
           {[
             { label: 'Home', target: '/' },
-            { label: 'About', target: 'about-us' },
+            { label: 'Story', target: 'about-us' },
             { label: 'Features', target: 'features' },
           ].map((item) => (
             <button

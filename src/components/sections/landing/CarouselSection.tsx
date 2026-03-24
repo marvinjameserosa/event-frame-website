@@ -41,7 +41,7 @@ export default function CarouselSection() {
     return (
       <section className="relative py-12 px-6 overflow-hidden" style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0a1222 50%, #080e1a 100%)' }}>
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Try Out More!</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Frames from the Community</h2>
           <div className="w-8 h-8 border-4 border-white/20 border-t-[#FFB84D] rounded-full animate-spin mx-auto"></div>
         </div>
       </section>
@@ -52,8 +52,8 @@ export default function CarouselSection() {
     return (
       <section className="relative py-12 px-6 overflow-hidden" style={{ background: 'linear-gradient(180deg, #080e1a 0%, #0a1222 50%, #080e1a 100%)' }}>
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Try Out More!</h2>
-          <p className="text-white/40">No frames available yet. Create your first frame to get started!</p>
+          <h2 className="text-3xl font-bold text-white mb-4">Frames from the Community</h2>
+          <p className="text-white/40">No frames available yet. Be the first to create one!</p>
         </div>
       </section>
     );
@@ -97,7 +97,7 @@ export default function CarouselSection() {
       ))}
 
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        <h2 className="text-3xl font-bold text-white mb-8 transition-colors duration-300 cursor-default hover:text-[#FFB84D]">Try Out More!</h2>
+        <h2 className="text-3xl font-bold text-white mb-8 transition-colors duration-300 cursor-default hover:text-[#FFB84D]">Frames from the Community</h2>
         
         <Carousel
           opts={{

@@ -218,13 +218,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           }}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">About us</span>
+            <span className="text-xs font-medium text-white/50 tracking-wide uppercase">The story</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-            Turn{' '}
+            A{' '}
             <span className="relative inline-block">
-              <span style={{ color: primaryBlue }}>moments</span>
+              <span style={{ color: primaryBlue }}>side project</span>
               <span
                 className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
                 style={{
@@ -233,11 +233,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   transition: 'opacity 1s ease 0.8s',
                 }}
               />
-            </span>{' '}
-            into
+            </span>
             <br />
+            that became{' '}
             <span className="relative inline-block">
-              <span style={{ color: accentGreen }}>masterpieces</span>
+              <span style={{ color: accentGreen }}>something</span>
               <span
                 className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
                 style={{
@@ -246,23 +246,21 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   transition: 'opacity 1s ease 1s',
                 }}
               />
-            </span>{' '}
-            with
+            </span>
             <br />
-            just one frame.
+            bigger.
           </h2>
 
           <p className="text-white/40 text-lg leading-relaxed">
-            FrameIt transforms your everyday photos into stunning visual stories.
-            Choose a frame, customize it your way, and share your creativity with the world.
+            FrameIt started as a fun workaround to avoid watermarks on DP Blast. What began as a quick hack turned into a collaborative effort, adopted by Arduino Day PH and ICpEP for their events. Now it{"'"}s open and free for everyone to use.
           </p>
 
           {/* Stats row */}
           <div className="flex gap-8 mt-8 justify-center md:justify-start">
             {[
-              { value: 'Fast', label: 'Processing', color: primaryBlue },
-              { value: 'Easy', label: 'To use', color: accentGreen },
-              { value: 'Free', label: 'Forever', color: '#FFB84D' },
+              { value: 'Arduino', label: 'Day PH', color: primaryBlue },
+              { value: 'ICpEP', label: 'Events', color: accentGreen },
+              { value: 'Free', label: 'For all', color: '#FFB84D' },
             ].map((stat, i) => (
               <div
                 key={stat.label}
