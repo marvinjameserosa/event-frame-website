@@ -4,15 +4,39 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import YellowButton from '../../ui/YellowButton';
 
+/* ── Polaroid layout: balanced gallery-wall arrangement ── */
 const HERO_PHOTOS = [
-  { src: '/hero/photo1.jpg', top: '2%',  left: '2%',  rotate: -14, w: 220, h: 260, caption: 'Friends forever', delay: 0 },
-  { src: '/hero/photo2.jpg', top: '5%',  right: '3%', rotate: 10,  w: 200, h: 240, caption: 'Say cheese!', delay: 1.5 },
-  { src: '/hero/photo3.jpg', top: '50%', left: '1%',  rotate: 7,   w: 200, h: 240, caption: 'Golden hour', delay: 3 },
-  { src: '/hero/photo4.jpg', bottom: '3%', right: '2%', rotate: -8, w: 230, h: 270, caption: 'Memories', delay: 4.5 },
-  { src: '/hero/photo5.jpg', top: '3%',  left: '32%', rotate: 5,   w: 180, h: 220, caption: 'Party time', delay: 2 },
-  { src: '/hero/photo6.jpg', bottom: '8%', left: '15%', rotate: -10, w: 210, h: 250, caption: 'City vibes', delay: 5 },
-  { src: '/hero/photo7.jpg', top: '35%', right: '1%', rotate: 12,  w: 190, h: 230, caption: 'Celebrate!', delay: 3.5 },
-  { src: '/hero/photo8.jpg', bottom: '2%', left: '38%', rotate: -5, w: 200, h: 240, caption: 'Snapshot', delay: 6 },
+  // Left column - stacked vertically with offsets
+  { src: '/hero/photo1.jpg', top: '4%',   left: '1%',   rotate: -12, w: 240, h: 290, caption: 'Friends forever' },
+  { src: '/hero/photo3.jpg', top: '48%',  left: '3%',   rotate: 8,   w: 220, h: 270, caption: 'Golden hour' },
+
+  // Right column - stacked vertically with offsets
+  { src: '/hero/photo2.jpg', top: '2%',   right: '1%',  rotate: 10,  w: 230, h: 280, caption: 'Say cheese!' },
+  { src: '/hero/photo7.jpg', top: '46%',  right: '2%',  rotate: -7,  w: 210, h: 260, caption: 'Celebrate!' },
+
+  // Top center - peeking behind content
+  { src: '/hero/photo5.jpg', top: '1%',   left: '34%',  rotate: 4,   w: 200, h: 250, caption: 'Party time' },
+
+  // Bottom scattered
+  { src: '/hero/photo4.jpg', bottom: '2%', right: '5%',  rotate: -6,  w: 240, h: 290, caption: 'Memories' },
+  { src: '/hero/photo6.jpg', bottom: '3%', left: '6%',   rotate: 11,  w: 220, h: 270, caption: 'City vibes' },
+  { src: '/hero/photo8.jpg', bottom: '1%', left: '36%',  rotate: -3,  w: 210, h: 260, caption: 'Snapshot' },
+];
+
+/* ── Fireflies: bigger, glowing, drifting ── */
+const FIREFLIES = [
+  { top: '12%', left: '22%',  size: 8,  color: '#0d7d72', driftDur: '8s',  glowDur: '2.4s', delay: '0s' },
+  { top: '25%', left: '70%',  size: 10, color: '#FFB84D', driftDur: '10s', glowDur: '1.8s', delay: '1s' },
+  { top: '60%', left: '28%',  size: 7,  color: '#FF8552', driftDur: '12s', glowDur: '2.2s', delay: '3s' },
+  { top: '75%', left: '65%',  size: 9,  color: '#0d7d72', driftDur: '9s',  glowDur: '2.6s', delay: '2s' },
+  { top: '40%', left: '50%',  size: 6,  color: '#FFB84D', driftDur: '11s', glowDur: '2s',   delay: '4s' },
+  { top: '18%', left: '45%',  size: 8,  color: '#FF8552', driftDur: '14s', glowDur: '2.8s', delay: '0.5s' },
+  { top: '85%', left: '40%',  size: 7,  color: '#0d7d72', driftDur: '13s', glowDur: '2.1s', delay: '5s' },
+  { top: '55%', left: '80%',  size: 10, color: '#FFB84D', driftDur: '10s', glowDur: '1.9s', delay: '1.5s' },
+  { top: '35%', left: '12%',  size: 6,  color: '#FF8552', driftDur: '15s', glowDur: '2.5s', delay: '3.5s' },
+  { top: '68%', left: '55%',  size: 9,  color: '#0d7d72', driftDur: '11s', glowDur: '2.3s', delay: '2.5s' },
+  { top: '8%',  left: '58%',  size: 7,  color: '#FFB84D', driftDur: '9s',  glowDur: '1.7s', delay: '6s' },
+  { top: '90%', left: '18%',  size: 8,  color: '#FF8552', driftDur: '12s', glowDur: '2s',   delay: '4.5s' },
 ];
 
 interface HeroSectionProps {
@@ -67,7 +91,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
       style={{ background: '#0a0a0a' }}
     >
-      {/* Dark corkboard / mood-board texture */}
+      {/* Dark corkboard texture dots */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -115,23 +139,41 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Scattered polaroid photos */}
+      {/* ── Fireflies ── */}
+      {FIREFLIES.map((f, i) => (
+        <div
+          key={`firefly-${i}`}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: f.size,
+            height: f.size,
+            top: f.top,
+            left: f.left,
+            backgroundColor: f.color,
+            color: f.color,
+            animation: `fireflyDrift ${f.driftDur} ease-in-out infinite ${f.delay}, fireflyGlow ${f.glowDur} ease-in-out infinite ${f.delay}`,
+            zIndex: 5,
+          }}
+        />
+      ))}
+
+      {/* ── Scattered polaroid photos ── */}
       {HERO_PHOTOS.map((photo, i) => {
-        const parallaxX = (mousePos.x - 0.5) * (6 + i * 2.5);
-        const parallaxY = (mousePos.y - 0.5) * (6 + i * 2.5);
+        const parallaxX = (mousePos.x - 0.5) * (8 + i * 3);
+        const parallaxY = (mousePos.y - 0.5) * (8 + i * 3);
         return (
           <div
             key={i}
             className="absolute hidden md:block pointer-events-none select-none"
             style={{
               top: photo.top,
-              left: photo.left,
-              right: photo.right,
-              bottom: photo.bottom,
+              left: (photo as { left?: string }).left,
+              right: (photo as { right?: string }).right,
+              bottom: (photo as { bottom?: string }).bottom,
               width: photo.w,
               transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
               transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-              animation: `floatRotateSoft 20s ease-in-out infinite ${photo.delay}s`,
+              animation: `floatRotateSoft ${18 + i * 2}s ease-in-out infinite ${i * 0.8}s`,
               zIndex: 1,
             }}
           >
@@ -140,8 +182,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               className="rounded-sm overflow-hidden"
               style={{
                 background: '#f5f0e8',
-                padding: '10px 10px 36px 10px',
-                boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)',
+                padding: '12px 12px 44px 12px',
+                boxShadow: '0 10px 50px rgba(0,0,0,0.55), 0 2px 10px rgba(0,0,0,0.35)',
               }}
             >
               <Image
@@ -151,17 +193,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 height={photo.h}
                 className="object-cover"
                 style={{
-                  width: photo.w - 20,
-                  height: photo.h - 46,
+                  width: photo.w - 24,
+                  height: photo.h - 56,
                   display: 'block',
                   filter: 'saturate(0.85) contrast(1.05)',
                 }}
               />
               {/* Caption area */}
               <p
-                className="text-center mt-1.5 font-serif italic"
+                className="text-center mt-2 font-serif italic"
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   color: '#8a7e6b',
                   letterSpacing: '0.02em',
                 }}
@@ -172,29 +214,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         );
       })}
-
-      {/* Floating dots for depth */}
-      {[
-        { top: '15%', left: '25%', size: 4, delay: '0s', dur: '12s' },
-        { top: '70%', left: '18%', size: 3, delay: '2s', dur: '14s' },
-        { top: '30%', right: '20%', size: 5, delay: '4s', dur: '16s' },
-        { top: '80%', right: '25%', size: 3, delay: '1s', dur: '11s' },
-      ].map((dot, i) => (
-        <div
-          key={`dot-${i}`}
-          className="absolute rounded-full"
-          style={{
-            width: dot.size,
-            height: dot.size,
-            top: dot.top,
-            left: dot.left,
-            right: (dot as { right?: string }).right,
-            backgroundColor: i % 3 === 0 ? primaryBlue : i % 3 === 1 ? accentGreen : '#FFB84D',
-            opacity: 0.25,
-            animation: `floatDot ${dot.dur} ease-in-out infinite ${dot.delay}`,
-          }}
-        />
-      ))}
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
