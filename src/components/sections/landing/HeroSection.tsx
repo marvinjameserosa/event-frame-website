@@ -105,37 +105,162 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Floating geometric shapes */}
+      {/* Floating geometric shapes -- large, pronounced colors */}
+      {/* Dark teal - large rounded square, top-left */}
       <div
-        className="absolute w-24 h-24 border border-white/[0.04] rounded-2xl"
+        className="absolute rounded-3xl"
         style={{
-          top: '18%',
-          left: '12%',
+          width: 200,
+          height: 200,
+          top: '8%',
+          left: '6%',
+          border: '2px solid rgba(14, 130, 118, 0.35)',
+          background: 'rgba(14, 130, 118, 0.08)',
+          boxShadow: '0 0 60px rgba(14, 130, 118, 0.1)',
           animation: 'floatRotate 20s ease-in-out infinite',
         }}
       />
+      {/* Orange - large circle, left */}
       <div
-        className="absolute w-16 h-16 border border-white/[0.03] rounded-full"
+        className="absolute rounded-full"
         style={{
-          top: '65%',
-          left: '8%',
+          width: 170,
+          height: 170,
+          top: '55%',
+          left: '3%',
+          border: '2px solid rgba(255, 133, 82, 0.3)',
+          background: 'rgba(255, 133, 82, 0.07)',
+          boxShadow: '0 0 50px rgba(255, 133, 82, 0.08)',
           animation: 'floatRotate 25s ease-in-out infinite reverse',
         }}
       />
+      {/* Yellow - large rounded square, top-right */}
       <div
-        className="absolute w-20 h-20 border border-white/[0.04] rounded-xl"
+        className="absolute rounded-2xl"
         style={{
-          top: '22%',
-          right: '10%',
+          width: 220,
+          height: 220,
+          top: '10%',
+          right: '4%',
+          border: '2px solid rgba(255, 184, 77, 0.3)',
+          background: 'rgba(255, 184, 77, 0.06)',
+          boxShadow: '0 0 60px rgba(255, 184, 77, 0.08)',
           animation: 'floatRotate 18s ease-in-out infinite 3s',
         }}
       />
+      {/* Dark teal - diamond, bottom-right */}
       <div
-        className="absolute w-12 h-12 border border-white/[0.03]"
+        className="absolute"
         style={{
-          bottom: '25%',
-          right: '15%',
+          width: 150,
+          height: 150,
+          bottom: '14%',
+          right: '8%',
+          border: '2px solid rgba(14, 130, 118, 0.3)',
+          background: 'rgba(14, 130, 118, 0.06)',
+          boxShadow: '0 0 40px rgba(14, 130, 118, 0.08)',
+          borderRadius: 10,
           animation: 'floatRotate 22s ease-in-out infinite 6s',
+          transform: 'rotate(45deg)',
+        }}
+      />
+      {/* Orange - medium circle, right */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 130,
+          height: 130,
+          top: '38%',
+          right: '14%',
+          border: '2px solid rgba(255, 133, 82, 0.25)',
+          background: 'rgba(255, 133, 82, 0.06)',
+          boxShadow: '0 0 40px rgba(255, 133, 82, 0.07)',
+          animation: 'floatRotate 28s ease-in-out infinite 2s',
+        }}
+      />
+      {/* Yellow - large rounded rect, bottom-left */}
+      <div
+        className="absolute rounded-3xl"
+        style={{
+          width: 180,
+          height: 180,
+          bottom: '6%',
+          left: '18%',
+          border: '2px solid rgba(255, 184, 77, 0.28)',
+          background: 'rgba(255, 184, 77, 0.06)',
+          boxShadow: '0 0 50px rgba(255, 184, 77, 0.07)',
+          animation: 'floatRotate 24s ease-in-out infinite 4s',
+        }}
+      />
+      {/* Dark teal - small circle, center-left */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 90,
+          height: 90,
+          top: '35%',
+          left: '15%',
+          border: '2px solid rgba(14, 130, 118, 0.28)',
+          background: 'rgba(14, 130, 118, 0.07)',
+          boxShadow: '0 0 30px rgba(14, 130, 118, 0.08)',
+          animation: 'floatRotate 16s ease-in-out infinite 1s',
+        }}
+      />
+      {/* Orange - small square, top-center */}
+      <div
+        className="absolute rounded-xl"
+        style={{
+          width: 100,
+          height: 100,
+          top: '6%',
+          left: '40%',
+          border: '2px solid rgba(255, 133, 82, 0.22)',
+          background: 'rgba(255, 133, 82, 0.05)',
+          boxShadow: '0 0 30px rgba(255, 133, 82, 0.06)',
+          animation: 'floatRotate 19s ease-in-out infinite 5s',
+        }}
+      />
+      {/* Yellow - small circle, bottom-center-right */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 80,
+          height: 80,
+          bottom: '20%',
+          right: '30%',
+          border: '2px solid rgba(255, 184, 77, 0.25)',
+          background: 'rgba(255, 184, 77, 0.06)',
+          boxShadow: '0 0 25px rgba(255, 184, 77, 0.07)',
+          animation: 'floatRotate 21s ease-in-out infinite 7s',
+        }}
+      />
+      {/* Dark teal - large circle, far right edge */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 160,
+          height: 160,
+          top: '18%',
+          right: '-3%',
+          border: '2px solid rgba(14, 130, 118, 0.2)',
+          background: 'rgba(14, 130, 118, 0.05)',
+          boxShadow: '0 0 50px rgba(14, 130, 118, 0.07)',
+          animation: 'floatRotate 26s ease-in-out infinite 3s',
+        }}
+      />
+      {/* Orange - diamond, bottom-left edge */}
+      <div
+        className="absolute"
+        style={{
+          width: 110,
+          height: 110,
+          bottom: '8%',
+          left: '4%',
+          border: '2px solid rgba(255, 133, 82, 0.22)',
+          background: 'rgba(255, 133, 82, 0.05)',
+          boxShadow: '0 0 35px rgba(255, 133, 82, 0.06)',
+          borderRadius: 8,
+          animation: 'floatRotate 23s ease-in-out infinite 8s',
           transform: 'rotate(45deg)',
         }}
       />
