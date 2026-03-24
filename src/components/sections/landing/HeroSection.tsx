@@ -105,7 +105,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       />
 
-      {/* Floating geometric shapes -- large, pronounced colors */}
+      {/* Floating geometric shapes -- solid colors */}
       {/* Dark teal - large rounded square, top-left */}
       <div
         className="absolute rounded-3xl"
@@ -114,9 +114,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 200,
           top: '8%',
           left: '6%',
-          border: '2px solid rgba(14, 130, 118, 0.35)',
-          background: 'rgba(14, 130, 118, 0.08)',
-          boxShadow: '0 0 60px rgba(14, 130, 118, 0.1)',
+          background: '#0E8276',
+          opacity: 0.15,
+          boxShadow: '0 0 80px rgba(14, 130, 118, 0.3)',
           animation: 'floatRotate 20s ease-in-out infinite',
         }}
       />
@@ -128,9 +128,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 170,
           top: '55%',
           left: '3%',
-          border: '2px solid rgba(255, 133, 82, 0.3)',
-          background: 'rgba(255, 133, 82, 0.07)',
-          boxShadow: '0 0 50px rgba(255, 133, 82, 0.08)',
+          background: '#FF8552',
+          opacity: 0.14,
+          boxShadow: '0 0 70px rgba(255, 133, 82, 0.25)',
           animation: 'floatRotate 25s ease-in-out infinite reverse',
         }}
       />
@@ -142,9 +142,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 220,
           top: '10%',
           right: '4%',
-          border: '2px solid rgba(255, 184, 77, 0.3)',
-          background: 'rgba(255, 184, 77, 0.06)',
-          boxShadow: '0 0 60px rgba(255, 184, 77, 0.08)',
+          background: '#FFB84D',
+          opacity: 0.13,
+          boxShadow: '0 0 80px rgba(255, 184, 77, 0.25)',
           animation: 'floatRotate 18s ease-in-out infinite 3s',
         }}
       />
@@ -156,9 +156,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 150,
           bottom: '14%',
           right: '8%',
-          border: '2px solid rgba(14, 130, 118, 0.3)',
-          background: 'rgba(14, 130, 118, 0.06)',
-          boxShadow: '0 0 40px rgba(14, 130, 118, 0.08)',
+          background: '#0E8276',
+          opacity: 0.14,
+          boxShadow: '0 0 60px rgba(14, 130, 118, 0.25)',
           borderRadius: 10,
           animation: 'floatRotate 22s ease-in-out infinite 6s',
           transform: 'rotate(45deg)',
@@ -172,9 +172,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 130,
           top: '38%',
           right: '14%',
-          border: '2px solid rgba(255, 133, 82, 0.25)',
-          background: 'rgba(255, 133, 82, 0.06)',
-          boxShadow: '0 0 40px rgba(255, 133, 82, 0.07)',
+          background: '#FF8552',
+          opacity: 0.12,
+          boxShadow: '0 0 50px rgba(255, 133, 82, 0.2)',
           animation: 'floatRotate 28s ease-in-out infinite 2s',
         }}
       />
@@ -186,9 +186,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 180,
           bottom: '6%',
           left: '18%',
-          border: '2px solid rgba(255, 184, 77, 0.28)',
-          background: 'rgba(255, 184, 77, 0.06)',
-          boxShadow: '0 0 50px rgba(255, 184, 77, 0.07)',
+          background: '#FFB84D',
+          opacity: 0.12,
+          boxShadow: '0 0 60px rgba(255, 184, 77, 0.2)',
           animation: 'floatRotate 24s ease-in-out infinite 4s',
         }}
       />
@@ -200,9 +200,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 90,
           top: '35%',
           left: '15%',
-          border: '2px solid rgba(14, 130, 118, 0.28)',
-          background: 'rgba(14, 130, 118, 0.07)',
-          boxShadow: '0 0 30px rgba(14, 130, 118, 0.08)',
+          background: '#0E8276',
+          opacity: 0.13,
+          boxShadow: '0 0 40px rgba(14, 130, 118, 0.2)',
           animation: 'floatRotate 16s ease-in-out infinite 1s',
         }}
       />
@@ -214,9 +214,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 100,
           top: '6%',
           left: '40%',
-          border: '2px solid rgba(255, 133, 82, 0.22)',
-          background: 'rgba(255, 133, 82, 0.05)',
-          boxShadow: '0 0 30px rgba(255, 133, 82, 0.06)',
+          background: '#FF8552',
+          opacity: 0.11,
+          boxShadow: '0 0 40px rgba(255, 133, 82, 0.18)',
           animation: 'floatRotate 19s ease-in-out infinite 5s',
         }}
       />
@@ -228,9 +228,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 80,
           bottom: '20%',
           right: '30%',
-          border: '2px solid rgba(255, 184, 77, 0.25)',
-          background: 'rgba(255, 184, 77, 0.06)',
-          boxShadow: '0 0 25px rgba(255, 184, 77, 0.07)',
+          background: '#FFB84D',
+          opacity: 0.12,
+          boxShadow: '0 0 35px rgba(255, 184, 77, 0.18)',
           animation: 'floatRotate 21s ease-in-out infinite 7s',
         }}
       />
@@ -242,9 +242,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 160,
           top: '18%',
           right: '-3%',
-          border: '2px solid rgba(14, 130, 118, 0.2)',
-          background: 'rgba(14, 130, 118, 0.05)',
-          boxShadow: '0 0 50px rgba(14, 130, 118, 0.07)',
+          background: '#0E8276',
+          opacity: 0.12,
+          boxShadow: '0 0 60px rgba(14, 130, 118, 0.2)',
           animation: 'floatRotate 26s ease-in-out infinite 3s',
         }}
       />
@@ -256,9 +256,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           height: 110,
           bottom: '8%',
           left: '4%',
-          border: '2px solid rgba(255, 133, 82, 0.22)',
-          background: 'rgba(255, 133, 82, 0.05)',
-          boxShadow: '0 0 35px rgba(255, 133, 82, 0.06)',
+          background: '#FF8552',
+          opacity: 0.12,
+          boxShadow: '0 0 45px rgba(255, 133, 82, 0.18)',
           borderRadius: 8,
           animation: 'floatRotate 23s ease-in-out infinite 8s',
           transform: 'rotate(45deg)',
