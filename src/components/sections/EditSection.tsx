@@ -77,8 +77,8 @@ export default function EditSection() {
     }
   };
 
-  const primaryBlue = frameColor || '#1ED9C3'; // Arduino Day Teal
-  const accentGreen = '#FF8552'; // Arduino Day Orange
+  const primaryBlue = frameColor || '#1ED9C3';
+  const accentGreen = '#FF8552';
 
   const handleChangeFrame = () => {
     if (confirm('Do you want to upload a new frame? Current progress will be lost.')) {

@@ -46,35 +46,35 @@ export default function Navbar() {
   return (
     <header
       className={`w-full sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-black/80 backdrop-blur-xl border-b border-white/10' 
+        scrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
         <div
-          className="text-xl font-semibold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-white flex items-center gap-2"
+          className="text-xl font-semibold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-foreground flex items-center gap-2"
           onClick={handleHomeClick}
         >
           <span className="text-2xl font-bold">FrameIt</span>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          <button 
-            onClick={handleAboutClick} 
-            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          <button
+            onClick={handleAboutClick}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             About
           </button>
-          <button 
-            onClick={handleFeaturesClick} 
-            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          <button
+            onClick={handleFeaturesClick}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Features
           </button>
-          <button 
-            onClick={handleHomeClick} 
-            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          <button
+            onClick={handleHomeClick}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Home
           </button>
@@ -82,7 +82,7 @@ export default function Navbar() {
 
         <button
           onClick={() => router.push('/login')}
-          className="flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
         >
           Get Started
           <ArrowRight className="w-4 h-4" />
