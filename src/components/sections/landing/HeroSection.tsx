@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,59 +7,47 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
   <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
-    {/* Colorful gradient blobs */}
+    {/* Subtle gradient orbs */}
     <div className="absolute inset-0 overflow-hidden">
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[120px] animate-gradient"
+        className="absolute w-[600px] h-[600px] rounded-full opacity-30 blur-[120px]"
         style={{
-          background: 'linear-gradient(135deg, #e85d75 0%, #ff9a8b 50%, #ffd89b 100%)',
-          top: '-15%',
-          right: '-8%',
-          opacity: 0.35,
+          background: 'linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)',
+          top: '-20%',
+          right: '-10%',
         }}
       />
       <div
-        className="absolute w-[400px] h-[400px] rounded-full blur-[100px] animate-gradient"
+        className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%)',
           bottom: '-10%',
           left: '-5%',
-          opacity: 0.25,
-          animationDelay: '2s',
-        }}
-      />
-      <div
-        className="absolute w-[300px] h-[300px] rounded-full blur-[80px] animate-gradient"
-        style={{
-          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          top: '40%',
-          left: '50%',
-          opacity: 0.15,
-          animationDelay: '4s',
         }}
       />
     </div>
 
+    {/* Grid pattern overlay */}
+    <div
+      className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage: `linear-gradient(rgba(15,23,42,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.15) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px',
+      }}
+    />
+
     <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
       {/* Badge */}
-      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fadeIn">
-        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-        <span className="text-sm text-foreground/70">Create stunning frames in seconds</span>
+      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/5 border border-border mb-8 animate-fadeIn">
+        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+        <span className="text-sm text-muted-foreground">Create stunning frames in seconds</span>
       </div>
 
       {/* Main heading */}
       <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight text-balance animate-fadeInUp">
         Make your photos
         <br />
-        <span
-          className="bg-clip-text text-transparent animate-gradient"
-          style={{
-            backgroundImage: 'linear-gradient(135deg, #e85d75, #ff9a8b, #667eea, #e85d75)',
-            backgroundSize: '200% 200%',
-          }}
-        >
-          stand out
-        </span>
+        <span className="text-muted-foreground">stand out</span>
       </h1>
 
       {/* Subtitle */}
@@ -76,7 +62,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGetStarted }) => (
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fadeIn" style={{ animationDelay: '0.4s' }}>
         <button
           onClick={onGetStarted}
-          className="flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+          className="flex items-center gap-2 px-8 py-4 bg-foreground text-background text-base font-semibold rounded-full hover:opacity-90 transition-all hover:scale-105"
         >
           Get Started
           <ArrowRight className="w-5 h-5" />
