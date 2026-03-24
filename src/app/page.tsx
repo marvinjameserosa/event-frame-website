@@ -10,8 +10,6 @@ import HeroSection from '@/components/sections/landing/HeroSection';
 
 export default function LandingPage() {
   const router = useRouter();
-  const primaryBlue = '#1ED9C3'; // Arduino Day Teal
-  const accentGreen = '#FF8552'; // Arduino Day Orange
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -25,16 +23,11 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col bg-black">
       <Header />
-      <HeroSection primaryBlue={primaryBlue} accentGreen={accentGreen} onGetStarted={handleGetStarted} />
-
-      {/* About Section */}
-      <AboutSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
-
-      {/* Features Section */}
-      <FeaturesSection primaryBlue={primaryBlue} accentGreen={accentGreen} />
-
+      <HeroSection onGetStarted={handleGetStarted} />
+      <AboutSection />
+      <FeaturesSection />
       <LandingFooter />
     </div>
   );

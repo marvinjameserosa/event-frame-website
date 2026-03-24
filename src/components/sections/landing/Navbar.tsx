@@ -1,19 +1,17 @@
 'use client';
 
-
 import { useRouter, usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const headerBgColor = '#0a0a0a'; // Arduino Day dark theme
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -47,37 +45,48 @@ export default function Navbar() {
 
   return (
     <header
-      style={{
-        backgroundColor: scrolled ? '#151515' : headerBgColor,
-        color: '#fff',
-        boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.3)' : '0 4px 16px rgba(0, 0, 0, 0.3)',
-        transition: 'background 0.3s, color 0.3s, box-shadow 0.3s',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50
-      }}
-      className="w-full text-white"
+      className={`w-full sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-black/80 backdrop-blur-xl border-b border-white/10' 
+          : 'bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
         <div
-          className="text-xl font-bold cursor-pointer hover:opacity-80 transition-opacity text-white flex items-center gap-2"
+          className="text-xl font-semibold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-white flex items-center gap-2"
           onClick={handleHomeClick}
         >
-          <Image 
-            src="/logo1.png" 
-            alt="ADPH Logo" 
-            width={35} 
-            height={35}
-            className="object-contain"
-          />
-          FrameIt
+          <span className="text-2xl font-bold">FrameIt</span>
         </div>
 
-        <nav className="flex space-x-6 items-center">
-          <button onClick={handleAboutClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">About Us</button>
-          <button onClick={handleFeaturesClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">Features</button>
-          <button onClick={handleHomeClick} className="transition-colors text-base font-medium cursor-pointer text-white hover:text-[#1ED9C3]">Home</button>
+        <nav className="hidden md:flex items-center gap-8">
+          <button 
+            onClick={handleAboutClick} 
+            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          >
+            About
+          </button>
+          <button 
+            onClick={handleFeaturesClick} 
+            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          >
+            Features
+          </button>
+          <button 
+            onClick={handleHomeClick} 
+            className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+          >
+            Home
+          </button>
         </nav>
+
+        <button
+          onClick={() => router.push('/login')}
+          className="flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-colors"
+        >
+          Get Started
+          <ArrowRight className="w-4 h-4" />
+        </button>
       </div>
     </header>
   );
