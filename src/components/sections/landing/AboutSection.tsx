@@ -3,29 +3,6 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
-/* Polaroid photos flanking the story section */
-const STORY_PHOTOS: {
-  src: string;
-  caption: string;
-  w: number;
-  h: number;
-  rotate: number;
-  top?: string;
-  bottom?: string;
-  left?: string;
-  right?: string;
-  z: number;
-}[] = [
-  // Left side -- cascading down
-  { src: '/story/story1.jpg', caption: 'Late night builds',   w: 180, h: 220, rotate: -14, top: '6%',  left: '-1%', z: 4 },
-  { src: '/story/story2.jpg', caption: 'The team',            w: 170, h: 210, rotate: -6,  top: '42%', left: '2%',  z: 3 },
-  { src: '/story/story3.jpg', caption: 'Community day',       w: 160, h: 200, rotate: -10, top: '76%', left: '0%',  z: 2 },
-  // Right side -- cascading down
-  { src: '/story/story4.jpg', caption: 'First frame',         w: 180, h: 220, rotate: 12,  top: '8%',  right: '-1%', z: 4 },
-  { src: '/hero/photo1.jpg',  caption: 'Arduino Day PH',      w: 170, h: 210, rotate: 7,   top: '44%', right: '2%',  z: 3 },
-  { src: '/hero/photo5.jpg',  caption: 'ICpEP collab',        w: 160, h: 200, rotate: 14,  top: '78%', right: '0%',  z: 2 },
-];
-
 /* Section-specific fireflies */
 const ABOUT_FIREFLIES = [
   { top: '8%',  left: '15%', size: 6, drift: 1, dur: '10s', glow: '2.8s', delay: '0.5s' },
@@ -60,7 +37,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [hoveredStat, setHoveredStat] = useState<number | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,20 +62,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      setMousePos({
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height,
-      });
-    };
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
   }, []);
 
   return (
@@ -179,59 +141,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           transition: 'transform 0.3s ease-out',
         }}
       />
-
-      {/* Polaroid photos on both sides */}
-      {STORY_PHOTOS.map((photo, i) => {
-        const parallaxX = (mousePos.x - 0.5) * (3 + i * 1);
-        const parallaxY = (mousePos.y - 0.5) * (3 + i * 1);
-        return (
-          <div
-            key={`story-photo-${i}`}
-            className="absolute hidden lg:block pointer-events-none select-none"
-            style={{
-              top: photo.top,
-              bottom: photo.bottom,
-              left: photo.left,
-              right: photo.right,
-              width: photo.w,
-              zIndex: photo.z,
-              opacity: isVisible ? 1 : 0,
-              transform: `rotate(${photo.rotate}deg) translate(${parallaxX}px, ${parallaxY}px)`,
-              transition: `transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 1s ease ${0.3 + i * 0.15}s`,
-              animation: isVisible ? `polaroidFloat ${18 + i * 2}s ease-in-out infinite ${i * 0.5}s` : 'none',
-            }}
-          >
-            <div
-              className="rounded-sm overflow-hidden"
-              style={{
-                background: '#f0e6d4',
-                padding: '8px 8px 36px 8px',
-                boxShadow: '0 10px 50px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)',
-              }}
-            >
-              <Image
-                src={photo.src}
-                alt=""
-                width={photo.w}
-                height={photo.h}
-                className="object-cover"
-                style={{
-                  width: photo.w - 16,
-                  height: photo.h - 44,
-                  display: 'block',
-                  filter: 'saturate(0.7) contrast(1.1) brightness(0.85) sepia(0.15)',
-                }}
-              />
-              <p
-                className="text-center mt-1.5 font-serif italic"
-                style={{ fontSize: 10, color: '#8a7560', letterSpacing: '0.02em' }}
-              >
-                {photo.caption}
-              </p>
-            </div>
-          </div>
-        );
-      })}
 
       <div className="max-w-6xl w-full mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-16 relative z-10">
         {/* Image side */}
