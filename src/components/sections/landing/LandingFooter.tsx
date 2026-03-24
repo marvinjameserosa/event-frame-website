@@ -4,7 +4,7 @@ export default function LandingFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-white/[0.04] relative overflow-hidden" style={{ background: '#060b16' }}>
+    <footer className="w-full relative overflow-hidden" style={{ background: 'transparent' }}>
       {/* A couple of subtle fireflies */}
       <div
         className="absolute rounded-full pointer-events-none"
